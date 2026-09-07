@@ -8,7 +8,7 @@
 
 `AI Skills` · `HTML BI` · `指标血缘` · `Python 标准库` · `MIT`
 
-[适合谁](#-适合谁) · [应用场景](#-skill-应用场景) · [快速上手](#-五分钟上手) · [与 AI 一起使用](#-与-ai-一起使用)
+[适合谁](#-适合谁) · [应用场景](#-skill-应用场景) · [安装到 AI 工具](#-在-codex--claude-code-中使用) · [制作自己的看板](#-用-skill-制作你自己的看板) · [梳理已有看板](#-用-skill-梳理已有看板)
 
 </div>
 
@@ -80,93 +80,203 @@ flowchart LR
 
 页面支持门店切换、每日趋势、空数据和错误状态。不依赖在线字体、图表 CDN 或分析服务。
 
-## 🚀 五分钟上手
+## 🤖 在 Codex / Claude Code 中使用
 
-### 1. 下载仓库
+先选工具安装 Skill，再打开**你自己的看板项目目录**发起任务。这里的 Claude 指具备本地文件与脚本操作能力的 **Claude Code**。
 
-点击 GitHub 页面上的 **Code → Download ZIP**，解压后打开目录。熟悉 Git 的话也可以：
+### 1. 安装 Skill，只需做一次
+
+<details open>
+<summary><strong>我使用 Codex</strong></summary>
+
+在 Codex 中调用 Skill Installer，发送下面这段话：
+
+```text
+请使用 $skill-installer，从这个仓库安装两套 Skill：
+https://github.com/hhaoyy/guanyuan-bi-toolkit
+
+仓库内路径：
+- skills/guanyuan-html-bi-generic
+- skills/guanyuan-metric-lineage
+
+保留各 Skill 的完整目录和脚本。
+若存在同名 Skill，先说明差异，不要直接覆盖。
+安装后告诉我如何调用。
+```
+
+安装完成后，在 Codex 的技能选择器中选择对应 Skill。CLI / IDE 扩展中可以输入 `$guanyuan-html-bi-generic` 或 `$guanyuan-metric-lineage`；未显示时重启 Codex 再检查。安装器与调用方式见 [Codex 官方说明](https://learn.chatgpt.com/docs/build-skills)。
+
+</details>
+
+<details>
+<summary><strong>我使用 Claude Code</strong></summary>
+
+在 Claude Code 中发送：
+
+```text
+请从 https://github.com/hhaoyy/guanyuan-bi-toolkit 下载以下 Skill：
+- skills/guanyuan-html-bi-generic
+- skills/guanyuan-metric-lineage
+
+将这两个完整目录分别安装到：
+~/.claude/skills/guanyuan-html-bi-generic/
+~/.claude/skills/guanyuan-metric-lineage/
+
+保留 SKILL.md 及 scripts 子目录。
+若目标已存在，先说明差异，不要直接覆盖。
+完成后检查文件，并告诉我如何调用。
+```
+
+之后在 Claude Code 输入 `/guanyuan-html-bi-generic` 或 `/guanyuan-metric-lineage`。若命令未出现，重新启动当前会话。个人技能目录及命令方式见 [Claude Code 官方说明](https://code.claude.com/docs/en/skills)。
+
+</details>
+
+<details>
+<summary>手动安装 / 只在当前项目使用</summary>
+
+点击本仓库 **Code → Download ZIP** 并解压，将 `skills/` 下需要使用的**完整 Skill 文件夹**复制到下表的目标目录。也可以用 Git 下载：
 
 ```bash
 git clone https://github.com/hhaoyy/guanyuan-bi-toolkit.git
-cd guanyuan-bi-toolkit
 ```
 
-### 2. 先看一个能跑的页面
+| 工具 | 仅当前项目 | 所有个人项目 |
+| --- | --- | --- |
+| Codex | 项目目录下 `.agents/skills/` | `~/.agents/skills/` |
+| Claude Code | 项目目录下 `.claude/skills/` | `~/.claude/skills/` |
 
-双击打开 **`examples/html-bi/index.html`**，无需安装依赖。
+例如 Claude Code 项目安装后的入口是 `.claude/skills/guanyuan-metric-lineage/SKILL.md`，旁边应保留 `scripts/`。目录规则分别参考 [Codex](https://learn.chatgpt.com/docs/build-skills) 与 [Claude Code](https://code.claude.com/docs/en/skills) 官方文档。
 
-在“全部门店 / 月球站 / 火星站”之间切换。页面下方还有空数据、异常数据演示按钮。
+只想先试一次，也可以让 AI 读取下载目录内的 `SKILL.md` 并按其执行，不必先安装到全局目录。
 
-接入你的观远环境时，请按 [看板接入指南](docs/html-bi.md) 核对数据结构和平台版本。
+</details>
 
-### 3. 再试一次指标血缘解析
+### 2. 选择你要完成的工作
 
-需要 Python **3.9 或更高版本**，不需要 `pip install`。
+| 你的任务 | Codex 调用 | Claude Code 调用 |
+| --- | --- | --- |
+| 新建 / 改造 HTML 看板 | 选择 `guanyuan-html-bi-generic`；CLI / IDE 可用 `$guanyuan-html-bi-generic` | `/guanyuan-html-bi-generic` |
+| 梳理指标与来源 | 选择 `guanyuan-metric-lineage`；CLI / IDE 可用 `$guanyuan-metric-lineage` | `/guanyuan-metric-lineage` |
 
-```bash
-# 生成演示 HAR
-python3 scripts/generate_synthetic_har.py
+调用 Skill 后接着描述任务。下面的需求模板和后续对话适用于两种工具。
 
-# 解析刚生成的示例
-python3 skills/guanyuan-metric-lineage/scripts/analyze_guanyuan_logs.py \
-  local/synthetic-cafe.har \
-  --output-root output/cafe
-```
+## 📊 用 Skill 制作你自己的看板
 
-先打开 **`output/cafe/INDEX.md`**，再看：
+### 第一步：把需求交给 AI
 
-| 文件 | 回答的问题 |
-| :--- | :--- |
-| `synthetic-cafe/docs/metric_lineage.md` | 每个指标来自哪里，在哪一层计算？ |
-| `synthetic-cafe/docs/filter_inventory.md` | 筛选器关联了哪些字段和卡片？ |
-| `synthetic-cafe/docs/dataset_source_mapping.md` | 数据集绑定了什么表或 SQL？ |
-| `synthetic-cafe/docs/coverage_report.md` | 还缺什么配置，要去哪里补采？ |
-| `combined_field_lineage.csv` | 能否继续用脚本分析或导入其他工具？ |
+在 Codex 或 Claude Code 中打开一个用于本次看板的工作目录，并选择 **HTML BI Skill**。准备以下信息；还不清楚的部分可以直接标注“待确认”。
 
-示例解析后包含 **2 张卡片、1 个数据集、4 条字段引用**。更多采集方法与支持范围见 [血缘使用指南](docs/lineage.md)。
+| 你提供什么 | 可以怎么描述 |
+| --- | --- |
+| 使用者与业务问题 | 运营每天看哪些门店增长、哪些渠道需要关注 |
+| 页面目标 | KPI、趋势、排名；或提供页面草图 / HTML 原型 |
+| 指标定义 | 订单如何去重、金额单位、统计时间和分母 |
+| 数据准备程度 | 已有结果集字段说明，或需要 AI 先设计结果集 |
+| 筛选与刷新 | 日期、门店、渠道；每天更新或按需刷新 |
 
-## 🧭 核心思路
-
-```mermaid
-flowchart LR
-    A[业务问题] --> B[指标与数据契约]
-    B --> C[观远数据集]
-    C --> D[HTML 看板]
-    D --> E[验数与维护]
-    F[本地 HAR] --> G[配置解析]
-    G --> H[公式与直接来源]
-    H --> I[缺口报告]
-```
-
-- **先定数据，再写页面。** 字段、粒度、单位和数据集顺序都要明确。
-- **数据刷新和结构变更分别处理。** 新增字段后，需要核对数据集结构和卡片绑定。
-- **只写证据能支持的结论。** 看见 `SUM(sales)`，不能自动推断完整业务定义。
-- **区分直接来源和完整血缘。** SQL 中提取的 `FROM/JOIN` 是追踪线索，不是完整 ETL 血缘。
-
-## 🤖 与 AI 一起使用
-
-两套 Skill 可分别复制到所用 AI 工具的技能目录，也可以让 AI 直接读取仓库内的 `SKILL.md`。第一次使用，可以从下面的任务描述开始。
-
-**从需求到观远看板：**
+可以直接复制这段需求，替换成自己的内容：
 
 ```text
-请按 skills/guanyuan-html-bi-generic/SKILL.md，
-帮我做一页需要在观远 BI 中展示的经营看板。
+请使用 guanyuan-html-bi-generic 帮我制作一页观远 HTML 经营看板。
 
-我会提供页面需求、字段说明和模拟数据。
-请先确认指标口径、结果集粒度及数据集顺序，
-再生成本地预览版、观远 CSS / JavaScript 和接入说明。
-业务数据由观远数据集在组织环境内查询和展示。
+使用者：区域运营负责人。
+需要回答：整体表现如何，哪些门店值得关注，最近趋势有什么变化。
+页面模块：订单数、销售额、客单价、每日趋势、门店排名。
+筛选：日期范围和门店。
+现有材料：我会提供字段说明、指标定义和页面参考。
+更新方式：每天刷新观远数据集。
+
+请先拆解页面模块，列出缺少的信息，整理结果集契约。
+没有明确的业务口径请标为待确认。
+先使用模拟数据制作预览，业务数据通过观远数据集接入。
+项目产物保存到当前工作目录。
 ```
 
-**梳理已有看板：**
+**这一轮你应该拿到：** 页面模块清单、指标口径草案、结果集设计，以及需要你回答的关键问题。
+
+### 第二步：确认口径，让 AI 生成交付文件
+
+把上一轮的问题补充清楚后，继续说：
 
 ```text
-请按 skills/guanyuan-metric-lineage/SKILL.md，
-在组织允许的本地环境中运行解析脚本，
-梳理我指定 HAR 中的卡片、公式、筛选器和数据集来源。
-输出指标字典、血缘报告，并说明还缺哪些配置。
+按我们确认的页面结构和指标口径继续实现。
+请交付：
+1. 可在本地打开的 HTML 预览；
+2. 观远自定义图表使用的 CSS 和 JavaScript；
+3. 每个数据集的字段、粒度、单位和绑定顺序；
+4. 需要我在观远完成的操作与验数步骤。
+
+页面需要处理空数据、缺失字段和范围切换。
+请先展示预览，便于我调整布局。
 ```
+
+**这一轮你应该拿到：** 可以审阅的页面和接入文件。你可以继续描述修改，例如“把排名放到趋势右侧”“金额统一显示到万元”“移动端先展示 KPI”。
+
+### 第三步：把结果接入观远
+
+| AI 交付什么 | 你在观远做什么 |
+| --- | --- |
+| 结果集契约 / 所需查询草稿 | 在组织数据环境中准备并核对数据集 |
+| 数据集绑定顺序 | 按约定顺序绑定到自定义图表 |
+| 发布版 CSS / JavaScript | 放入对应编辑区，核对容器和平台接口 |
+| 验数说明 | 检查日期、单位、汇总与各筛选范围 |
+
+本仓库提供开发与接入方法。安装 Skill 本身不会连接你的观远账户；只有另行配置了浏览器或平台工具并授权，AI 才能协助操作页面。具体步骤见 [HTML BI 接入指南](docs/html-bi.md)。
+
+### 第四步：带着具体问题继续迭代
+
+例如接入后空白，可以继续向同一个任务描述：
+
+```text
+本地预览正常，接入观远后页面空白。
+请基于当前项目的 CSS、JavaScript 和结果集契约排查。
+先检查 renderChart 注册、container、数据集顺序和列式数据适配。
+告诉我需要提供哪些错误信息或结构说明，再修改对应文件。
+```
+
+新增指标时，也可以说：“增加一个退款率卡片，先说明需要补充什么字段、是否要更新数据集结构，再修改页面。”
+
+## 🔎 用 Skill 梳理已有看板
+
+### 第一步：准备看板采集文件
+
+在获准环境中采集目标看板的 HAR，保留响应正文；必要时补采卡片或数据集编辑页。详见 [HAR 采集指南](docs/lineage.md)。解析脚本需要 Python 3.9+，只使用标准库。
+
+这条流程应在组织允许 AI 读取相应材料的环境中使用；若只允许本地脚本处理，可直接按指南运行命令。
+
+### 第二步：调用血缘 Skill，说明范围
+
+选择 **Metric Lineage Skill**，发送：
+
+```text
+请使用 guanyuan-metric-lineage 梳理我的观远看板。
+
+输入文件：当前项目 local/ 中我指定的 HAR。
+文件关系：同一个看板的运行态和编辑态采集。
+目标：完成看板交接，弄清每个指标的公式和来源。
+
+请运行解析脚本，输出到 output/lineage/。
+给我卡片与指标清单、筛选器联动、数据集及源表/SQL 映射。
+区分已经确认的内容、缺少的配置和需要继续追踪的上游逻辑。
+如果采集不完整，明确告诉我应该打开哪个编辑页面补采。
+```
+
+把文件路径和文件关系改成自己的情况；多个不同看板应分别解析。
+
+### 第三步：阅读结果，继续追问
+
+AI 应返回报告位置、关键发现和缺口说明。先看指标血缘与覆盖报告，再决定补采或追踪上游代码。
+
+可以继续问：“哪些指标只有聚合、还缺业务定义？”“这个筛选器影响哪些卡片？”“哪些数据集缺少来源配置？”
+
+**你最终得到：** 一套用于交接、排查和改造的指标资料，以及明确的后续动作。
+
+<details>
+<summary>可选：先浏览仓库自带示例</summary>
+
+下载仓库后，双击 `examples/html-bi/index.html` 可以体验截图中的页面。血缘演示命令见 [使用指南](docs/lineage.md)。示例用于理解效果和产物结构，可以直接跳过，开始自己的项目。
+
+</details>
 
 ## 📦 仓库地图
 
