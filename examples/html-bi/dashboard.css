@@ -1,0 +1,43 @@
+#container{--ink:#17283c;--muted:#657287;--paper:#f4f6fa;--line:#e4e9f0;--accent:#5064e5;color:var(--ink);font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--paper);padding:36px;box-sizing:border-box;min-height:680px}
+#container *{box-sizing:border-box}
+#container .cafe{max-width:1100px;margin:auto}
+#container .topline{display:flex;justify-content:space-between;gap:18px;align-items:center;font-size:12px;letter-spacing:.08em;margin-bottom:30px}
+#container .brand{font-weight:800}
+#container .chip{display:inline-block;border:1px solid #cfd7ff;border-radius:30px;padding:4px 12px;color:#4354ad;background:#edf0ff;font-size:12px}
+#container .hero{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:30px}
+#container h1{font-size:36px;letter-spacing:-1.4px;line-height:1.25;margin:8px 0 12px}
+#container h2{font-size:17px;margin:0}
+#container p{color:var(--muted);margin:6px 0}
+#container .eyebrow{font-size:11px;letter-spacing:.14em;color:#6b76a2;font-weight:700}
+#container .scope-label{display:block;color:var(--muted);font-size:12px;margin-bottom:5px}
+#container select{min-width:150px;border:1px solid #d7dfeb;border-radius:10px;padding:10px 14px;font:inherit;color:var(--ink);background:white}
+#container .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:22px}
+#container .kpi{background:white;border:1px solid var(--line);border-radius:16px;padding:24px}
+#container .kpi.primary{background:#24334c;color:white;border-color:#24334c}
+#container .label{font-size:13px;opacity:.78}
+#container .value{font-size:36px;letter-spacing:-1px;line-height:1.5;font-weight:750}
+#container .unit{font-size:12px;font-weight:400;letter-spacing:0;opacity:.7;margin-left:8px}
+#container .caption{font-size:12px;opacity:.7}
+#container .panels{display:grid;grid-template-columns:1.7fr 1fr;gap:22px}
+#container .panel{background:white;border:1px solid var(--line);border-radius:16px;padding:24px;min-width:0}
+#container .panel-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+#container .sub{font-size:12px;color:var(--muted)}
+#container .chart{height:224px;display:flex;align-items:end;gap:14px;padding:24px 0 0;border-bottom:1px solid var(--line)}
+#container .bar-group{flex:1;min-width:0;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:end;height:100%}
+#container .bar-number{font-size:10px;color:var(--muted);margin-bottom:6px}
+#container .bar{width:75%;max-width:45px;background:#b9c2fa;border-radius:7px 7px 0 0;min-height:0}
+#container .bar-group:last-child .bar{background:var(--accent)}
+#container .bar-day{font-size:11px;color:var(--muted);height:28px;padding-top:5px}
+#container .ranking{margin-top:24px}
+#container .rank-row{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:17px 0;border-bottom:1px solid var(--line)}
+#container .rank-name{font-weight:600}
+#container .rank-value{font-size:19px;font-weight:700}
+#container .rank-dot{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:9px;background:#f0f2ff;color:var(--accent);margin-right:9px;font-size:12px}
+#container .note{margin-top:22px;border-radius:12px;background:#eaf0fb;padding:14px 18px;font-size:13px;color:#4d5d7b}
+#container footer{display:flex;justify-content:space-between;gap:16px;color:var(--muted);font-size:11px;margin-top:24px}
+#container .state{background:white;border:1px solid var(--line);border-radius:16px;padding:36px;margin-top:28px}
+#container .error{border-left:4px solid #dc7e60}
+.demo-controls{max-width:1172px;margin:14px auto;padding:0 36px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;font:12px/1.5 sans-serif;color:#66738a}
+.demo-controls button{font:inherit;cursor:pointer;padding:7px 12px;background:white;color:#4d5d7b;border:1px solid #dce2ec;border-radius:8px}
+body{margin:0;background:#f4f6fa}
+@media(max-width:700px){#container{padding:20px;min-height:0}#container .hero{align-items:start;flex-direction:column}#container h1{font-size:29px}#container .kpis{grid-template-columns:1fr;gap:12px}#container .kpi{padding:18px}#container .value{font-size:30px}#container .panels{grid-template-columns:1fr}#container .chart{gap:7px}#container footer{flex-direction:column}#container .topline{letter-spacing:0;align-items:start}#container .chip{white-space:nowrap}.demo-controls{padding:0 20px}}
