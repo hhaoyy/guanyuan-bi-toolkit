@@ -17,3 +17,9 @@ local/
 output/
 raw/
 private/
+
+# Private toolkit configuration and vendor authentication
+guanyuan.json
+settings.local.json
+.guancli/
+.guanvis/

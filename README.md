@@ -24,13 +24,14 @@
 - 一个看板几十张卡片，想弄清指标公式和来源，要逐个打开。
 - 字段改了，数据也刷新了，页面为什么还不对？
 
-这个仓库把这些问题拆成两条可以动手跑通的路径。
+这个仓库提供 HTML 看板开发、CLI 平台操作和指标血缘三套可组合的技能。
 
 | 你想做什么 | 从这里开始 | 你会得到什么 |
 | :--- | :--- | :--- |
 | 做一个动态 HTML 看板 | **HTML BI Starter** | 预览页面、CSS / JS、数据契约和接入说明 |
 | 弄清已有看板的指标来源 | **Metric Lineage** | 指标字典、筛选器清单、数据集映射和缺口报告 |
-| 让 AI 帮你完成这些工作 | **两套 Skills** | 可复用的工作步骤、证据规则和运行脚本 |
+| 自动接入与发布看板 | **Guanyuan CLI** | 官方工具安装检查、数据集配置、组件绑定、发布与回读验证 |
+| 让 AI 帮你完成这些工作 | **三套 Skills** | 可独立使用，也可由 HTML Skill 串起完整交付流程 |
 
 ## 🎯 适合谁？
 
@@ -92,19 +93,20 @@ flowchart LR
 在 Codex 中调用 Skill Installer，发送下面这段话：
 
 ```text
-请使用 $skill-installer，从这个仓库安装两套 Skill：
+请使用 $skill-installer，从这个仓库安装三套 Skill：
 https://github.com/hhaoyy/guanyuan-bi-toolkit
 
 仓库内路径：
 - skills/guanyuan-html-bi-generic
 - skills/guanyuan-metric-lineage
+- skills/guanyuan-cli
 
-保留各 Skill 的完整目录和脚本。
+保留各 Skill 的完整目录、参考文档和脚本。
 若存在同名 Skill，先说明差异，不要直接覆盖。
 安装后告诉我如何调用。
 ```
 
-安装完成后，在 Codex 的技能选择器中选择对应 Skill。CLI / IDE 扩展中可以输入 `$guanyuan-html-bi-generic` 或 `$guanyuan-metric-lineage`；未显示时重启 Codex 再检查。安装器与调用方式见 [Codex 官方说明](https://learn.chatgpt.com/docs/build-skills)。
+安装完成后，在 Codex 的技能选择器中选择对应 Skill。CLI / IDE 扩展中可以输入 `$guanyuan-html-bi-generic` 、`$guanyuan-metric-lineage` 或 `$guanyuan-cli`；未显示时重启 Codex 再检查。安装器与调用方式见 [Codex 官方说明](https://learn.chatgpt.com/docs/build-skills)。
 
 </details>
 
@@ -117,17 +119,19 @@ https://github.com/hhaoyy/guanyuan-bi-toolkit
 请从 https://github.com/hhaoyy/guanyuan-bi-toolkit 下载以下 Skill：
 - skills/guanyuan-html-bi-generic
 - skills/guanyuan-metric-lineage
+- skills/guanyuan-cli
 
-将这两个完整目录分别安装到：
+将这三个完整目录分别安装到：
 ~/.claude/skills/guanyuan-html-bi-generic/
 ~/.claude/skills/guanyuan-metric-lineage/
+~/.claude/skills/guanyuan-cli/
 
-保留 SKILL.md 及 scripts 子目录。
+保留 SKILL.md、references 和 scripts 等全部子目录。
 若目标已存在，先说明差异，不要直接覆盖。
 完成后检查文件，并告诉我如何调用。
 ```
 
-之后在 Claude Code 输入 `/guanyuan-html-bi-generic` 或 `/guanyuan-metric-lineage`。若命令未出现，重新启动当前会话。个人技能目录及命令方式见 [Claude Code 官方说明](https://code.claude.com/docs/en/skills)。
+之后在 Claude Code 输入 `/guanyuan-html-bi-generic`、`/guanyuan-metric-lineage` 或 `/guanyuan-cli`。若命令未出现，重新启动当前会话。个人技能目录及命令方式见 [Claude Code 官方说明](https://code.claude.com/docs/en/skills)。
 
 </details>
 
@@ -156,6 +160,7 @@ git clone https://github.com/hhaoyy/guanyuan-bi-toolkit.git
 | 你的任务 | Codex 调用 | Claude Code 调用 |
 | --- | --- | --- |
 | 新建 / 改造 HTML 看板 | 选择 `guanyuan-html-bi-generic`；CLI / IDE 可用 `$guanyuan-html-bi-generic` | `/guanyuan-html-bi-generic` |
+| 安装 CLI / 操作数据集与看板 | 选择 `guanyuan-cli`；CLI / IDE 可用 `$guanyuan-cli` | `/guanyuan-cli` |
 | 梳理指标与来源 | 选择 `guanyuan-metric-lineage`；CLI / IDE 可用 `$guanyuan-metric-lineage` | `/guanyuan-metric-lineage` |
 
 调用 Skill 后接着描述任务。下面的需求模板和后续对话适用于两种工具。
@@ -212,16 +217,28 @@ git clone https://github.com/hhaoyy/guanyuan-bi-toolkit.git
 
 **这一轮你应该拿到：** 可以审阅的页面和接入文件。你可以继续描述修改，例如“把排名放到趋势右侧”“金额统一显示到万元”“移动端先展示 KPI”。
 
-### 第三步：把结果接入观远
+### 第三步：让 AI 接入并发布到观远
 
-| AI 交付什么 | 你在观远做什么 |
-| --- | --- |
-| 结果集契约 / 所需查询草稿 | 在组织数据环境中准备并核对数据集 |
-| 数据集绑定顺序 | 按约定顺序绑定到自定义图表 |
-| 发布版 CSS / JavaScript | 放入对应编辑区，核对容器和平台接口 |
-| 验数说明 | 检查日期、单位、汇总与各筛选范围 |
+需要自动发布时，继续对 HTML Skill 说：
 
-本仓库提供开发与接入方法。安装 Skill 本身不会连接你的观远账户；只有另行配置了浏览器或平台工具并授权，AI 才能协助操作页面。具体步骤见 [HTML BI 接入指南](docs/html-bi.md)。
+```text
+请把当前 HTML 看板接入我的观远环境并完成发布。
+使用 guanyuan-cli 检查并安装缺少的官方组件，复用适合的已有认证。
+根据确认的数据契约创建或复用数据集，绑定自定义图表，发布后检查真实数据和页面交互。
+实例、目标目录和数据源使用我提供的信息或本地项目配置；无法确定的选项再问我。
+保留源工程和资源映射，以便后续修改同一个看板。
+所有账户信息、业务数据和发布证据只保存在我的私有项目中。
+```
+
+HTML Skill 负责页面和数据契约，CLI Skill 负责平台操作。无需手工在两个技能之间搬运上下文。首次安装仍需符合官方系统要求；登录和发布需要目标环境的相应权限。
+
+**流程：** 页面构想 → HTML/CSS/JS → 数据集准备 → SDK 组件绑定 → 发布 → 在线验收 → 同 ID 更新。
+
+没有平台访问权限或只想先看效果时，仍可交付本地预览和接入文件，按 [HTML BI 接入指南](docs/html-bi.md) 手工接入。安装技能本身不会连接账户或更改线上资源。
+
+通用技能不预设组织目录、地区或数据源。可将偏好保存在私有项目的 `local/guanyuan.json`；字段及优先级见 [配置约定](skills/guanyuan-cli/references/configuration.md)。
+
+**验证边界：** 仓库测试使用合成输入，验证本地适配器和工具检查脚本。实际环境的首次 HTML 发布及同 ID 更新，需要在用户环境验收；不能把本地测试通过解释成所有观远版本都已验证。
 
 ### 第四步：带着具体问题继续迭代
 
@@ -283,7 +300,7 @@ AI 应返回报告位置、关键发现和缺口说明。先看指标血缘与�
 ```text
 guanyuan-bi-toolkit/
 ├── examples/html-bi/     # 可直接打开的合成看板
-├── skills/               # HTML BI 与指标血缘两套 Skill
+├── skills/               # HTML BI、CLI 与指标血缘三套 Skill
 ├── scripts/              # 示例生成与辅助工具
 ├── tests/                # 解析与数据适配测试
 └── docs/                 # 接入、采集、数据契约
@@ -291,6 +308,7 @@ guanyuan-bi-toolkit/
 
 ## 📚 继续阅读
 
+- [CLI 安装与使用](docs/cli.md)：官方依赖、本地配置、自动发布与更新。
 - [HTML BI 接入指南](docs/html-bi.md)：数据契约、平台适配与常见问题。
 - [指标血缘使用指南](docs/lineage.md)：HAR 采集、结果解读与解析范围。
 

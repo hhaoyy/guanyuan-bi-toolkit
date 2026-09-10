@@ -1,6 +1,6 @@
 ---
 name: guanyuan-html-bi-generic
-description: Design and adapt dynamic HTML BI dashboards for Guanyuan using explicit result-set contracts, dataset bindings and rendering validation.
+description: Design and adapt dynamic HTML BI dashboards for Guanyuan, and coordinate dataset binding, publication and same-ID updates through the companion CLI skill when platform delivery is requested.
 ---
 
 # Guanyuan HTML BI
@@ -27,3 +27,7 @@ Verify that this interface exists in the user's platform version. Keep dataset i
 Deliver a local preview, platform CSS/JavaScript and a dataset contract. Preserve the user's requested layout. Validate totals, units, trends and each required scope with authorized data in its permitted environment. Distinguish synthetic preview tests from platform acceptance.
 
 Keep project-specific knowledge outside reusable skill code. Public examples must be generated from scratch; never publish production HAR, exports, SQL, screenshots or identifiers.
+
+## Automated delivery
+
+For platform dataset setup, publication or online updates, read [CLI delivery](references/cli-delivery.md) and use the companion `guanyuan-cli` skill. Continue from HTML design through platform acceptance within the requested scope; a code bundle alone is not a completed publishing task. For local preview only, no CLI installation or login is needed. Preserve the standalone preview workflow and existing data-contract checks.
