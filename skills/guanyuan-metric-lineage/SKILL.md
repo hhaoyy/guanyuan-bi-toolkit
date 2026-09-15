@@ -1,26 +1,29 @@
 ---
 name: guanyuan-metric-lineage
-description: Parse local Guanyuan HAR captures into card, metric, selector, dataset and direct-source inventories, with evidence levels and capture gaps.
+description: Analyze Guanyuan dashboard metrics, formulas, selectors, interactions and upstream lineage. Prefer live read-only guancli evidence; use local HAR parsing only when CLI access or coverage is insufficient.
 ---
 
 # Guanyuan Metric Lineage
 
-Resolve scripts relative to this skill directory. Parse only local captures the user is authorized to inspect. Do not upload input or generated reports.
+Explain how a dashboard calculates, filters and connects its data. Keep formulas, aggregations, selector rules, card interactions, dataset calculations and upstream transformations as distinct layers. Do not infer business definitions from labels or simple expressions.
 
-```bash
-python3 scripts/analyze_guanyuan_logs.py INPUT.har --output-root OUTPUT
-```
+## Choose the evidence path
 
-Use `--merge` only for captures of the same dashboard. It concatenates entries and selects the largest page-config response; it does not reconcile conflicting configurations. Different dashboards must remain separate analyses.
+When `guancli` is available and the user permits access to the target environment, read [CLI-first workflow](references/cli-first.md) and start there. A dashboard URL or page ID is enough to begin after resolving an authenticated profile. Do not require the user to record a HAR first.
 
-Inspect `INDEX.md`, `combined_field_lineage.csv` and each `docs/coverage_report.md`. A successful process alone is insufficient: verify field rows and explain missing evidence.
+Use [HAR fallback](references/har-fallback.md) when the user explicitly supplies captures, wants offline analysis, cannot use CLI, lacks a needed CLI permission, or the installed client/server does not expose part of the configuration. Collect only the missing evidence instead of restarting the entire analysis from HAR. CLI reflects current platform state; HAR reflects the state and requests at capture time. Preserve that distinction when combining them.
 
-- `confirmed_guanyuan`: dataset binding table or SQL is present.
-- `partial`: dataset identified but source absent.
-- `missing`: field has no dataset identifier.
+If upstream logic continues into ETL, dataset SQL or warehouse code, use the corresponding authorized query tools. Direct `FROM`/`JOIN` references are clues, not complete transitive lineage.
 
-Keep card formulas, dataset formulas, simple aggregations and upstream fields distinct. Direct `FROM/JOIN` references are clues, not complete transitive lineage. Do not infer business definitions from names or `SUM(field)`.
+## Output
 
-For missing page config, recapture after refresh with response bodies. For formulas, inspect card editing state. For dataset source gaps, inspect its source configuration; the parser currently expects source information inside page `dsInfos`. For missing warehouse logic, trace authorized ETL code rather than repeatedly capturing HAR.
+Produce a concise dashboard overview plus machine-readable tables where useful:
 
-Report counts, evidence boundaries and precise next steps. Never print authentication values. Outputs may contain business data, SQL and identifiers; keep them within the same authorized boundary as inputs. Public bug reports must use newly constructed synthetic examples.
+- Cards and metrics: page/tab, card ID, display type, dataset, dimensions, measures, aggregations, card calculations and unresolved business definitions.
+- Filters and interactions: selector ID/type, source field, default or dynamic value, target cards/fields, automatic versus explicit linkage, and card-to-card actions.
+- Dataset lineage: dataset calculation formulas, source or SQL evidence, upstream datasets/ETL, refresh context when relevant, and gaps requiring another tool or permission.
+- Evidence: source (`guancli`, `HAR`, upstream tool), observed time or capture time, evidence level, and the exact unresolved item.
+
+Use `confirmed_cli`, `confirmed_har`, `partial` and `missing` as evidence levels. “Confirmed” means the platform configuration or captured response was observed; it does not prove the business definition or numerical correctness. Validate requested values separately with card/dataset preview and state which filter context was applied.
+
+Keep authentication, outputs, SQL, IDs and reports in the user's authorized private workspace. Never upload live output to this public toolkit. Public bug reports and tests must use newly constructed synthetic examples.

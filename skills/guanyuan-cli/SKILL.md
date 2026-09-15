@@ -13,14 +13,14 @@ Read [setup.md](references/setup.md) for installation, version discovery and aut
 
 | Work | Component |
 | --- | --- |
-| Inspect pages, cards, fields and data | `guancli` |
+| Inspect pages, cards, fields, interactions and lineage | `guancli` |
 | Data sources, datasets, schema, refresh and schedules | `guands` |
 | Native or custom charts, selectors, page layout and publication | `guanvis` |
 | ETL development and execution | `guanetl` |
 | Workflow operations | `guanwf` |
 | Metric platform operations | `guanmetric` |
 
-Read the installed component's official skill and relevant command help before operating it. Load only components required by the task. For HTML design or adaptation, use `guanyuan-html-bi-generic` when available; the CLI workflow can also accept already prepared HTML/CSS/JS and a data contract.
+For dashboard metric, formula, selector, interaction or lineage analysis, use the companion `guanyuan-metric-lineage` skill when available; it treats `guancli` as the primary evidence source. Read the installed component's official skill and relevant command help before operating it. Load only components required by the task. For HTML design or adaptation, use `guanyuan-html-bi-generic` when available; the CLI workflow can also accept already prepared HTML/CSS/JS and a data contract.
 
 ## Environment and resource identity
 
