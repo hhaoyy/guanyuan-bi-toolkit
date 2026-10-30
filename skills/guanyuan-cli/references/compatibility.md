@@ -44,3 +44,5 @@ If installed capabilities cannot satisfy the task, identify the missing feature 
 Prefer a coherent official suite release when using the suite; record actual component versions, which are not the suite version. For independent packages, pin selected exact versions and test the used combination. Switch the project runtime only after affected checks pass; keep the old choice available. Do not claim an online rollback merely because old binaries remain available.
 
 The public repository must contain only synthetic tests and general capability rules. Private adaptation state, tenant evidence, SQL, metrics and credentials never become public fixtures.
+
+For backup-export permission blockers, consult [backup permission fallback](backup-permissions.md). Record the skip capability separately for the selected GuanVis version; an environment-variable marker in a binary is implementation evidence, not a successful online publication test.

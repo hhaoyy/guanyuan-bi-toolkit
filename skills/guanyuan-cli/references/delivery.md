@@ -25,7 +25,7 @@ Use installed `guanvis` CustomChartBuilder documentation and its SDK example for
 
 ## 4. Publish and accept
 
-Run `guanvis preview <project>` and, when supported, `guanvis publish <project> --dry-run`. Structural preview does not render platform HTML. Inspect the intended page IDs and changes before publishing. For an authorized same-ID replacement, use the installed version's documented overwrite mechanism and preserve its backup behavior.
+Run `guanvis preview <project>` and, when supported, `guanvis publish <project> --dry-run`. Structural preview does not render platform HTML. Inspect the intended page IDs and changes before publishing. For an authorized same-ID replacement, use the installed version's overwrite mechanism. If backup export permissions block that authorized update, follow [backup permission fallback](backup-permissions.md) instead of repeatedly requesting backup access.
 
 After publishing, read back page/card IDs, subtype, dataset bindings, projected fields and selectors. Open the actual page with an available browser tool and inspect rendering, data, filters, empty states and rerender behavior. A supported CLI screenshot can provide visual evidence; if screenshot export is unavailable, use the browser. If no platform viewing tool is available, give the page link and mark visual acceptance pending instead of claiming completion.
 

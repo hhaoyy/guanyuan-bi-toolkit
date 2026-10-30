@@ -46,3 +46,7 @@ python3 skills/guanyuan-cli/scripts/doctor.py --components guancli guands guanvi
 这套机制由检测脚本与 AI 执行流程共同完成：脚本识别变化，AI 加载匹配文档、更新能力记录并执行任务内验证。未知版本会先检查能力；无法支持的操作明确降级或说明阻碍。它不会在普通业务任务中直接升级全局 CLI，也不会把启动成功当成在线发布成功。
 
 详细流程见 [版本适配机制](../skills/guanyuan-cli/references/compatibility.md)。仅预览 HTML 或离线解析 HAR 不需要连接平台。
+
+## 修改看板时反复要求备份权限
+
+已授权修改同一个看板，且阻碍明确来自覆盖前备份的导出权限时，Skill 会检查当前 GuanVis 是否支持跳过备份；支持时仅对本次发布设置跳过选项，继续原修改并回读验证，不反复要求取得备份权限。跳过后不会生成本次覆盖前的 CLI 导出备份，已有本地源工程仍需保留。页面写入权限、资源校验或未知发布错误不适用此路径。见 [处理规则与版本证据](../skills/guanyuan-cli/references/backup-permissions.md)。
