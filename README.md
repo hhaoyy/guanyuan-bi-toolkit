@@ -230,7 +230,7 @@ git clone https://github.com/hhaoyy/guanyuan-bi-toolkit.git
 所有账户信息、业务数据和发布证据只保存在我的私有项目中。
 ```
 
-HTML Skill 负责页面和数据契约，CLI Skill 负责平台操作。无需手工在两个技能之间搬运上下文。首次安装仍需符合官方系统要求；登录和发布需要目标环境的相应权限。
+HTML Skill 负责页面和数据契约，CLI Skill 负责平台操作。无需手工在两个技能之间搬运上下文。首次安装仍需符合官方系统要求；登录和发布需要目标环境的相应权限。Skill 会检测你实际使用的 CLI 版本，按匹配文档更新本地适配记录；遇到不支持的能力会说明替代路径。详见 [版本适配机制](skills/guanyuan-cli/references/compatibility.md)。
 
 **流程：** 页面构想 → HTML/CSS/JS → 数据集准备 → SDK 组件绑定 → 发布 → 在线验收 → 同 ID 更新。
 

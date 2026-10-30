@@ -31,3 +31,7 @@ Keep project-specific knowledge outside reusable skill code. Public examples mus
 ## Automated delivery
 
 For platform dataset setup, publication or online updates, read [CLI delivery](references/cli-delivery.md) and use the companion `guanyuan-cli` skill. Continue from HTML design through platform acceptance within the requested scope; a code bundle alone is not a completed publishing task. For local preview only, no CLI installation or login is needed. Preserve the standalone preview workflow and existing data-contract checks.
+
+## CLI version changes
+
+When using the companion `guanyuan-cli`, run its version-adaptation workflow before platform operations. Use matching installed documentation and refresh affected private capability records after upgrades or downgrades. If the companion is unavailable, inspect the selected CLI version and matching official docs directly; do not assume latest syntax. Preserve local preview or offline HAR workflows when platform capabilities are unavailable.

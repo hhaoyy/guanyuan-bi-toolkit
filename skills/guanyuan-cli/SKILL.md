@@ -7,6 +7,10 @@ description: Install and use official Guandata CLI tools to inspect resources, c
 
 Operate the user's Guanyuan environment through official CLI components. This community skill orchestrates the tools; it does not bundle vendor binaries, credentials, or tenant defaults.
 
+## Version-aware automatic adaptation
+
+Before platform work, follow [automatic version adaptation](references/compatibility.md). Detect the selected local runtime, invalidate stale capability records on version changes, and refresh private task instructions from matching official docs. This applies to upgrades and downgrades; never equate a successful startup with server support.
+
 ## Setup and routing
 
 Read [setup.md](references/setup.md) for installation, version discovery and authentication. Use existing tools when suitable; install missing dependencies from verified official sources. Run `python3 <this-skill>/scripts/doctor.py` to check local component startup without logging in or changing BI resources. A successful check does not prove server compatibility.

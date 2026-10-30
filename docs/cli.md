@@ -38,3 +38,11 @@ python3 skills/guanyuan-cli/scripts/doctor.py --components guancli guands guanvi
 - 血缘技能与原有示例保持兼容。
 
 本仓库尚不提供跨服务器版本的在线发布认证。请在私有环境对首次 HTML 发布及同 ID 更新完成验收；反馈兼容性问题时只提交从零构造的复现材料。第三方组件以各自许可证为准。
+
+## 随用户版本自动适配
+
+每次平台任务开始时，Skill 检测所选 CLI 的版本及指纹；版本升级、降级或工具内容变化后，自动作废受影响的本地适配记录，并按对应版本的官方文档重新整理命令和能力。记录保存在用户私有项目 `local/guanyuan-compatibility.json`。
+
+这套机制由检测脚本与 AI 执行流程共同完成：脚本识别变化，AI 加载匹配文档、更新能力记录并执行任务内验证。未知版本会先检查能力；无法支持的操作明确降级或说明阻碍。它不会在普通业务任务中直接升级全局 CLI，也不会把启动成功当成在线发布成功。
+
+详细流程见 [版本适配机制](../skills/guanyuan-cli/references/compatibility.md)。仅预览 HTML 或离线解析 HAR 不需要连接平台。

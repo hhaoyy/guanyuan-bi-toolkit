@@ -27,3 +27,7 @@ Produce a concise dashboard overview plus machine-readable tables where useful:
 Use `confirmed_cli`, `confirmed_har`, `partial` and `missing` as evidence levels. “Confirmed” means the platform configuration or captured response was observed; it does not prove the business definition or numerical correctness. Validate requested values separately with card/dataset preview and state which filter context was applied.
 
 Keep authentication, outputs, SQL, IDs and reports in the user's authorized private workspace. Never upload live output to this public toolkit. Public bug reports and tests must use newly constructed synthetic examples.
+
+## CLI version changes
+
+When using the companion `guanyuan-cli`, run its version-adaptation workflow before platform operations. Use matching installed documentation and refresh affected private capability records after upgrades or downgrades. If the companion is unavailable, inspect the selected CLI version and matching official docs directly; do not assume latest syntax. Preserve local preview or offline HAR workflows when platform capabilities are unavailable.

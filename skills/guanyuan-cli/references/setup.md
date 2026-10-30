@@ -14,8 +14,10 @@ Official package references:
 Inspect package metadata with `npm view <package> version engines os cpu dist.integrity` and read its README. Verify the selected release rather than blindly updating an existing installation. For an explicitly requested full six-component setup, the documented npm installation pattern is:
 
 ```bash
-npm install -g --foreground-scripts @guandata/guancli @guandata/guands @guandata/guanvis @guandata/guanetl @guandata/guanwf @guandata/guanmetric
+npm install --prefix <private-runtime-directory> --foreground-scripts @guandata/guancli@<selected-version> @guandata/guands@<selected-version> @guandata/guanvis@<selected-version> @guandata/guanetl@<selected-version> @guandata/guanwf@<selected-version> @guandata/guanmetric@<selected-version>
 ```
+
+Replace each placeholder with its selected component version; versions need not be equal. Use that runtime’s bin directory explicitly. Follow [version adaptation](compatibility.md) before changing an existing runtime.
 
 For a smaller task, reuse the installation and install only missing required components. Where global installation is unavailable, use a user-selected private prefix and its bin directory according to npm/platform documentation. Do not hardcode a workstation path or copy someone else's installed binaries. Inspect install output: official packages may refresh their own component skills through postinstall. Retain those as version-matched API references alongside this orchestration skill; do not overwrite this skill with them. Follow current vendor guidance for `install-skill` if documentation was not installed.
 
