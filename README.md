@@ -24,14 +24,14 @@
 - 一个看板几十张卡片，想弄清指标公式和来源，要逐个打开。
 - 字段改了，数据也刷新了，页面为什么还不对？
 
-这个仓库提供 HTML 看板开发、CLI 平台操作和指标血缘三套可组合的技能。
+这个仓库提供统一助手、HTML 看板开发、CLI 平台操作和指标血缘四套可组合的技能。
 
 | 你想做什么 | 从这里开始 | 你会得到什么 |
 | :--- | :--- | :--- |
 | 做一个动态 HTML 看板 | **HTML BI Starter** | 预览页面、CSS / JS、数据契约和接入说明 |
 | 弄清已有看板的指标来源 | **Metric Lineage** | 指标字典、筛选器清单、数据集映射和缺口报告 |
 | 自动接入与发布看板 | **Guanyuan CLI** | 官方工具安装检查、数据集配置、组件绑定、发布与回读验证 |
-| 让 AI 帮你完成这些工作 | **三套 Skills** | 可独立使用，也可由 HTML Skill 串起完整交付流程 |
+| 让 AI 帮你完成这些工作 | **四套 Skills** | 可独立使用，也可由 HTML Skill 串起完整交付流程 |
 
 ## 🎯 适合谁？
 
@@ -73,6 +73,21 @@ flowchart LR
 
 使用 **[`guanyuan-metric-lineage`](skills/guanyuan-metric-lineage/SKILL.md)** 直接通过 `guancli` 读取当前看板配置，整理指标公式、筛选器默认值与作用范围、卡片联动、数据集计算字段和可见的上游来源。HAR 只在离线分析、历史快照或 CLI 覆盖不足时补充。
 
+## 🧭 从一个问题开始
+
+不知道选哪套 Skill 时，使用 **`guanyuan-bi`**：提供业务问题、字段说明或已有看板链接即可。它会推荐布局、梳理口径，并在获准的数据范围内主动检查变化、贡献与下一步验证。
+
+```text
+请使用 guanyuan-bi 帮我做门店经营看板。
+我想知道本期表现如何、变化主要来自哪些门店。
+先推荐两种适合的布局，用模拟数据预览；
+接入后请区分数据事实、原因假设和下一步验证建议。
+```
+
+模板包含 **经营总览、转化漏斗、渠道对比、异常监控**，搭配简洁商务、紧凑分析、深色展示三种主题。下载后打开 [模板画廊](examples/template-gallery/index.html)，可切换模板和主题、点击分组下钻，并体验空数据与缺失字段状态。模板源码随 HTML Skill 一起安装。
+
+主动分析在当前任务中执行；示例结论由本地规则计算，未连接模型服务。持续巡检需要另行配置调度。BI 权限与 AI 数据使用范围分别确认，详见 [分析流程](skills/guanyuan-bi/references/analysis.md)。
+
 ## ☕ 示例：星际咖啡店
 
 我们用一家不存在的咖啡店演示整个流程：月球站和火星站卖咖啡，老板只想知道订单、销售额和客单价。
@@ -93,10 +108,11 @@ flowchart LR
 在 Codex 中调用 Skill Installer，发送下面这段话：
 
 ```text
-请使用 $skill-installer，从这个仓库安装三套 Skill：
+请使用 $skill-installer，从这个仓库安装四套 Skill：
 https://github.com/hhaoyy/guanyuan-bi-toolkit
 
 仓库内路径：
+- skills/guanyuan-bi
 - skills/guanyuan-html-bi-generic
 - skills/guanyuan-metric-lineage
 - skills/guanyuan-cli
@@ -106,7 +122,7 @@ https://github.com/hhaoyy/guanyuan-bi-toolkit
 安装后告诉我如何调用。
 ```
 
-安装完成后，在 Codex 的技能选择器中选择对应 Skill。CLI / IDE 扩展中可以输入 `$guanyuan-html-bi-generic` 、`$guanyuan-metric-lineage` 或 `$guanyuan-cli`；未显示时重启 Codex 再检查。安装器与调用方式见 [Codex 官方说明](https://learn.chatgpt.com/docs/build-skills)。
+安装完成后，可以先选择 `guanyuan-bi`（CLI / IDE 输入 `$guanyuan-bi`）从业务问题开始，也可以选择专门技能。CLI / IDE 扩展中可以输入 `$guanyuan-html-bi-generic` 、`$guanyuan-metric-lineage` 或 `$guanyuan-cli`；未显示时重启 Codex 再检查。安装器与调用方式见 [Codex 官方说明](https://learn.chatgpt.com/docs/build-skills)。
 
 </details>
 
@@ -117,11 +133,13 @@ https://github.com/hhaoyy/guanyuan-bi-toolkit
 
 ```text
 请从 https://github.com/hhaoyy/guanyuan-bi-toolkit 下载以下 Skill：
+- skills/guanyuan-bi
 - skills/guanyuan-html-bi-generic
 - skills/guanyuan-metric-lineage
 - skills/guanyuan-cli
 
-将这三个完整目录分别安装到：
+将这四个完整目录分别安装到：
+~/.claude/skills/guanyuan-bi/
 ~/.claude/skills/guanyuan-html-bi-generic/
 ~/.claude/skills/guanyuan-metric-lineage/
 ~/.claude/skills/guanyuan-cli/
@@ -131,7 +149,7 @@ https://github.com/hhaoyy/guanyuan-bi-toolkit
 完成后检查文件，并告诉我如何调用。
 ```
 
-之后在 Claude Code 输入 `/guanyuan-html-bi-generic`、`/guanyuan-metric-lineage` 或 `/guanyuan-cli`。若命令未出现，重新启动当前会话。个人技能目录及命令方式见 [Claude Code 官方说明](https://code.claude.com/docs/en/skills)。
+之后可以直接输入 `/guanyuan-bi` 从业务问题开始，或使用 `/guanyuan-html-bi-generic`、`/guanyuan-metric-lineage` 或 `/guanyuan-cli`。若命令未出现，重新启动当前会话。个人技能目录及命令方式见 [Claude Code 官方说明](https://code.claude.com/docs/en/skills)。
 
 </details>
 
@@ -159,6 +177,7 @@ git clone https://github.com/hhaoyy/guanyuan-bi-toolkit.git
 
 | 你的任务 | Codex 调用 | Claude Code 调用 |
 | --- | --- | --- |
+| 从业务问题开始 / 主动分析 | `$guanyuan-bi` | `/guanyuan-bi` |
 | 新建 / 改造 HTML 看板 | 选择 `guanyuan-html-bi-generic`；CLI / IDE 可用 `$guanyuan-html-bi-generic` | `/guanyuan-html-bi-generic` |
 | 安装 CLI / 操作数据集与看板 | 选择 `guanyuan-cli`；CLI / IDE 可用 `$guanyuan-cli` | `/guanyuan-cli` |
 | 梳理指标与来源 | 选择 `guanyuan-metric-lineage`；CLI / IDE 可用 `$guanyuan-metric-lineage` | `/guanyuan-metric-lineage` |
@@ -296,7 +315,7 @@ Skill 会从页面资源开始，按实际引用查询卡片、数据集和 ETL�
 ```text
 guanyuan-bi-toolkit/
 ├── examples/html-bi/     # 可直接打开的合成看板
-├── skills/               # HTML BI、CLI 与指标血缘三套 Skill
+├── skills/               # 统一助手、HTML BI、CLI 与指标血缘四套 Skill
 ├── scripts/              # 示例生成与辅助工具
 ├── tests/                # 解析与数据适配测试
 └── docs/                 # 接入、采集、数据契约

@@ -14,5 +14,5 @@ jobs:
         with:
           node-version: '22'
       - run: python3 -m unittest discover -s tests -p 'test_*.py'
-      - run: node --test tests/dashboard.test.cjs
+      - run: node --test tests/*.test.cjs
       - run: python3 scripts/check_public_files.py

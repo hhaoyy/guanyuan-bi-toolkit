@@ -31,3 +31,7 @@ Keep authentication, outputs, SQL, IDs and reports in the user's authorized priv
 ## CLI version changes
 
 When using the companion `guanyuan-cli`, run its version-adaptation workflow before platform operations. Use matching installed documentation and refresh affected private capability records after upgrades or downgrades. If the companion is unavailable, inspect the selected CLI version and matching official docs directly; do not assume latest syntax. Preserve local preview or offline HAR workflows when platform capabilities are unavailable.
+
+## From definitions to business analysis
+
+When the user asks what changed or what to investigate, hand the observed formulas, filter context and evidence gaps to `guanyuan-bi` when available. Numerical analysis requires authorized aggregate data and comparable periods; lineage alone does not establish trends or causes. Keep configuration-only requests scoped.
