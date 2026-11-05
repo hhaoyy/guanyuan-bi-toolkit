@@ -17,6 +17,7 @@ Read [setup.md](references/setup.md) for installation, version discovery and aut
 
 | Work | Component |
 | --- | --- |
+| SuperApp scaffold/publish and API Gateway discovery/configuration | `guancli` |
 | Inspect pages, cards, fields, interactions and lineage | `guancli` |
 | Data sources, datasets, schema, refresh and schedules | `guands` |
 | Native or custom charts, selectors, page layout and publication | `guanvis` |
@@ -39,3 +40,5 @@ Follow [delivery.md](references/delivery.md) for dataset preparation, HTML bindi
 If a command fails after a possible write, inspect the target before retrying. Report partial completion and stop dependent writes when state cannot be established. A local preview, accepted upload, or HTTP success alone is not platform acceptance. Verify stored configuration, real data and visible behavior. Keep production evidence private; public examples and bug reproductions must be newly synthesized.
 
 For authorized same-ID edits blocked specifically by pre-overwrite backup export permissions, apply [backup permission fallback](references/backup-permissions.md). A supported skip does not require repeated approval for the already authorized edit; it does not bypass write permissions or publication checks.
+
+For optional live analysis inside a SuperApp, use the companion `guanyuan-bi` integration contract and the installed official SuperApp/gateway docs. Static publication does not deploy the analysis backend. Preserve online settings and verify the authenticated route before wiring calls.

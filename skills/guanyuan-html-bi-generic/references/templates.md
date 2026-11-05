@@ -22,3 +22,9 @@ Copy required assets into the user's private project, adapt field mapping and wo
 For SDK integration, include engine and view JavaScript in the platform script, load scoped theme CSS, and use `renderChart`/`GDPlugin` registration from the HTML skill. On every render create a fresh view from current data/context. The gallery's UI controls and synthetic bootstrap are local preview only. `BITemplateView.mount(container, kind, rows, context, scope, theme)` replaces the current markup; its drill-down handler belongs to that container and must be replaced/cleared on rerender. It filters the received aggregate result only; page selectors and server-side queries still require CLI configuration. No external CDN/model service is required.
 
 An agent can extend descriptive results with the unified skill's evidence-backed analysis workflow when data use is authorized. Never label the deterministic demo as a live AI model. AI narratives need their own scope/timestamp handling. Compare metrics and findings after each scope change, test empty/invalid inputs, and verify the actual platform rendering before marking delivery complete.
+
+## Executable diagnosis
+
+`analyze` now returns template-specific `insights`, numeric `evidence` and `actions`. `investigate(kind, rows, context, scope, actionId)` executes the selected local investigation: order/average decomposition, sequential funnel-stage effects, channel volume/conversion decomposition, or threshold priority. Effects are order-dependent arithmetic, not causal attribution. Zero denominators return `not_evaluable`; absent daily data returns `needs_data`. The view offers buttons and updates findings per scope.
+
+For AI-selected explanations and live server refresh, use `guanyuan-bi` → `references/superapp-analysis.md`. Keep this local engine as a reproducible evidence layer; do not put credentials or MCP sessions into custom-chart HTML.

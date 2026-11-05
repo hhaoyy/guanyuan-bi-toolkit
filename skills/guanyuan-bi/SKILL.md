@@ -22,6 +22,10 @@ For dashboard building or analysis requests, read [analysis workflow](references
 
 Return useful findings before implementation details: what changed, evidence and scope, what remains unknown, and a concrete next investigation. Distinguish facts from hypotheses; a contribution decomposition is not causal proof. Validate arithmetic with code or authorized query results. A chart caption or generated narrative is not evidence.
 
+## Optional SuperApp analysis
+
+For selectable AI explanations, refreshable conclusions or executable investigations, read [SuperApp analysis integration](references/superapp-analysis.md). Prefer the authenticated gateway/service architecture; users configure their own approved AI or MCP service. Reuse the supplied client/service interfaces and template-specific diagnostic actions. Do not mistake MCP for a model, deploy the demo authentication stub, or label local rule results as AI.
+
 ## Finish
 
 For a dashboard, deliver the chosen layout and theme, field mapping, preview, relevant findings and platform acceptance status. For analysis, deliver findings plus traceable evidence without modifying the dashboard unless asked. Store project decisions and evidence privately for subsequent edits. This skill runs within a user task; it does not create an unattended monitoring service or notifications.
