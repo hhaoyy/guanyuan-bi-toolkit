@@ -48,10 +48,10 @@ function enrich(a,rows,context,scope){
   finding('history-gap','持续性尚未验证',`只有两个聚合周期，不能判断异常持续时间或季节性。${a.notEvaluable.length} 个分组因零基期无法计算变化率。`,['total']);
   action('alert-priority','执行：按金额影响排列调查顺序');
  }
- a.actions.push({id:'daily-evidence',label:'继续调查：查看逐日变化',status:'needs_data',requires:['同范围逐日数据','刷新水位与完整性证据']});
+ a.actions.push({id:'daily-evidence',label:'逐日调查（需接入数据）',status:'needs_data',requires:['同范围逐日数据','刷新水位与完整性证据']});
  return a;
 }
-function investigate(kind,rows,context,scope,id){
+function executeInvestigation(kind,rows,context,scope,id){
  const a=analyze(kind,rows,context,scope);
  if(a.status!=='ok')return {status:'blocked',reason:'当前范围没有可分析数据'};
  const action=a.actions.find(x=>x.id===id);if(!action)throw new Error('调查动作不属于当前模板');
@@ -69,6 +69,21 @@ function investigate(kind,rows,context,scope,id){
  }
  if(id==='channel-decomposition')return {status:'complete',method:'分解转化用户变化：先流量，再转化率；不等于预算收益',rows:a.groups.map(g=>{const old=rows.find(r=>r.group===g.group&&r.period==='baseline'),now=rows.find(r=>r.group===g.group&&r.period==='current');return {group:g.group,trafficEffect:old.visitors===0?null:(now.visitors-old.visitors)*old.orders/old.visitors,conversionEffect:old.visitors===0||now.visitors===0?null:now.visitors*(now.orders/now.visitors-old.orders/old.visitors),total:now.orders-old.orders};})};
  return {status:'complete',method:'按绝对金额影响排序；持续时间需要逐日证据',rows:[...a.alerts].sort((x,y)=>Math.abs(y.delta)-Math.abs(x.delta)).map(g=>({group:g.group,delta:g.delta,changePercent:g.rate*100,excessPP:(Math.abs(g.rate)-context.threshold)*100}))};
+}
+function investigate(kind,rows,context,scope,id){
+ const out=executeInvestigation(kind,rows,context,scope,id);
+ const money=context.unit||'金额单位待确认';
+ out.units=kind==='overview'?{value:money}:kind==='funnel'?{value:'人'}:kind==='channels'?{trafficEffect:'人',conversionEffect:'人',total:'人'}:{delta:money,changePercent:'%',excessPP:'个百分点'};
+ if(out.status!=='complete'){out.nextStep=out.status==='needs_data'?'先接入同范围的逐日数据，并核对刷新时间和完整性，再执行逐日调查。':'先核对缺失值和零分母；补齐可比数据后重新计算，不据此作原因判断。';return out;}
+ if(kind==='overview'||kind==='funnel'){
+  const losses=out.rows.filter(r=>r.value<0).sort((a,b)=>a.value-b.value);
+  const lead=losses[0];
+  out.nextStep=lead?(kind==='overview'?(lead.factor==='订单量影响'?'优先查看订单减少最多的分组及日期，再检查客流和营业时长。':'优先查看客单价下降的分组，再检查商品结构、折扣和退款口径。'):`优先调查「${lead.factor}」：${lead.factor==='访问人数'?'按来源和日期检查入口访问变化。':'按来源和日期检查该阶段转化变化，并核对观察窗口。'}`):'没有负向分解项；先核对增长或持平是否符合预期，不强行解释为下降。';
+ }else if(kind==='channels'){
+  const lead=out.rows.filter(r=>r.total<0).sort((a,b)=>a.total-b.total)[0];
+  out.nextStep=lead?(lead.trafficEffect===null||lead.conversionEffect===null?`${lead.group} 存在零分母，先补齐可比访问数据。`:`优先检查 ${lead.group} 的${lead.trafficEffect<=lead.conversionEffect?'流量来源与逐日访问量':'转化路径与观察窗口'}；预算判断仍需成本和收益证据。`):'没有转化用户净减少的渠道；结合成本和收益证据再评估后续动作。';
+ }else out.nextStep=out.rows.length?`先核对 ${out.rows[0].group} 的数据刷新与口径，再接入逐日数据判断偏离持续时间；不要仅因阈值命中调整业务。`:'当前没有命中阈值的分组；按原计划继续观察，无需人为生成异常处理任务。';
+ return out;
 }
 function analyze(kind, rows, context, scope=null) {
  const spec=catalog[kind]; if(!spec) throw new Error('未知模板');

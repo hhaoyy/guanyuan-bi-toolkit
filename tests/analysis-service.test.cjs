@@ -53,3 +53,18 @@ test('fresh snapshot revisions and values are fetched per request',async()=>{
  let v=0;const service=createService({...defaults,loadSnapshot:async()=>{v++;return {...snapshot,revision:'v'+v,rows:rows.map(r=>r.period==='current'?{...r,sales:r.sales+v}:r)};}});
  const first=await service(query,{}),second=await service({...query,requestId:'second'},{});assert.notEqual(first.revision,second.revision);assert.notEqual(first.analysis.current.sales,second.analysis.current.sales);
 });
+
+test('investigation units and next steps are explicit and data-dependent',()=>{
+ const sales=engine.investigate('overview',rows,{...context,unit:'星币'},null,'sales-drivers');assert.equal(sales.units.value,'星币');assert.match(sales.nextStep,/订单/);
+ const funnel=engine.investigate('funnel',rows,context,null,'stage-decomposition');assert.equal(funnel.units.value,'人');assert.match(funnel.nextStep,/访问人数/);
+ const channel=engine.investigate('channels',rows,context,null,'channel-decomposition');assert.equal(channel.units.trafficEffect,'人');assert.match(channel.nextStep,/A.*流量/);
+ const monitor=engine.investigate('monitor',rows,{...context,unit:'星币'},null,'alert-priority');assert.equal(monitor.units.delta,'星币');assert.equal(monitor.units.excessPP,'个百分点');
+ const stable=rows.map(r=>({...r,sales:100}));assert.match(engine.investigate('monitor',stable,context,null,'alert-priority').nextStep,/没有命中/);
+ const price=rows.map(r=>r.period==='current'?{...r,orders:200}:r);assert.match(engine.investigate('overview',price,context,null,'sales-drivers').nextStep,/客单价下降/);
+});
+test('daily action is enabled only with a configured and authorized adapter',async()=>{
+ const unavailable=await createService(defaults)(query,{});assert.equal(unavailable.analysis.actions.find(a=>a.id==='daily-evidence').status,'needs_data');
+ const wired=createService({...defaults,investigateDaily:async()=>({status:'complete',rows:[],nextStep:'Synthetic daily check'})});
+ const ready=await wired(query,{});assert.equal(ready.analysis.actions.find(a=>a.id==='daily-evidence').status,'ready');
+ const done=await wired({...query,action:'daily-evidence'},{});assert.equal(done.investigation.status,'complete');
+});

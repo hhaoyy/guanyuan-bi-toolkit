@@ -19,6 +19,10 @@ function createService({engine,authenticate,authorize,loadSnapshot,provider,inve
   if(!snapshot||typeof snapshot.revision!=='string'||!snapshot.revision||typeof snapshot.observedAt!=='string'||!Number.isFinite(Date.parse(snapshot.observedAt)))throw Error('invalid_snapshot');
   const analysis=engine.analyze(q.template,snapshot.rows,snapshot.context,q.scope);
   if(analysis.status!=='ok')throw Error('no_data');
+  if(investigateDaily){
+   const permission=await authorize(principal,{...q,operation:'daily-evidence'});
+   if(permission?.allowed===true){const daily=analysis.actions.find(a=>a.id==='daily-evidence');daily.status='ready';daily.label='继续调查：查看逐日变化';}
+  }
   let investigation=null,ai=null;
   if(q.action){
    if(!analysis.actions.some(a=>a.id===q.action))throw Error('action_not_allowed');
