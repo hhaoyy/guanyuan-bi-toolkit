@@ -40,6 +40,16 @@ test('channel conversion requires unique converted users within visitors',()=>{
 });
 test('untrusted labels are escaped, including context and scope',()=>{
  const c={innerHTML:'',onclick:null},bad=rows.map(r=>({...r,group:r.group==='A'?'<img src=x>':r.group}));
- mount(c,'overview',bad,{...context,currentLabel:'<script>x</script>'},null,'unknown');
- assert.ok(!c.innerHTML.includes('<img'));assert.ok(!c.innerHTML.includes('<script>'));assert.ok(c.innerHTML.includes('&lt;img'));
+ mount(c,'overview',bad,{...context,currentLabel:'<script>x</script>',dashboardTitle:'<img src=x>',unit:'<svg onload=x>'},null,'unknown');
+ assert.ok(!c.innerHTML.includes('<img'));assert.ok(!c.innerHTML.includes('<svg onload'));assert.ok(!c.innerHTML.includes('<script>'));assert.ok(c.innerHTML.includes('&lt;img'));
+});
+
+test('zero-valued periods render without non-finite chart coordinates or rates',()=>{
+ const zero=rows.map(r=>({...r,visitors:0,leads:0,orders:0,sales:0}));
+ const c={innerHTML:'',onclick:null};
+ for(const kind of Object.keys(catalog)){
+  mount(c,kind,zero,context);
+  assert.ok(!/NaN|Infinity/.test(c.innerHTML));
+  assert.ok(c.innerHTML.includes('不可计算'));
+ }
 });

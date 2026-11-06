@@ -7,7 +7,7 @@ description: Design and adapt dynamic HTML BI dashboards for Guanyuan, and coord
 
 Identify whether the requested output is a static report or a dynamic dashboard. For dynamic dashboards, establish each dataset's grain, fields, units, scope semantics, update cadence and module consumers before implementing business calculations. Reuse confirmed requirements; ask only when missing information changes the result.
 
-For new designs without a fixed layout, read [template selection](references/templates.md). Offer two suitable layouts from the four bundled templates and explain their field requirements. Use the installable assets for previews and preserve the selected theme. For authorized business analysis, use `guanyuan-bi` and its analysis workflow when available; otherwise report descriptive facts only and identify missing evidence.
+For new designs without a fixed layout, read [template selection](references/templates.md). Choose or adapt a layout by the reading task and explain its field requirements. Offer two alternatives when they differ meaningfully in hierarchy or chart choice; do not force a template split for similar questions. Use the installable assets for previews and preserve the selected theme. For authorized business analysis, use `guanyuan-bi` and its analysis workflow when available; otherwise report descriptive facts only and identify missing evidence.
 
 Keep complex business logic in the data layer. The frontend may adapt data, aggregate genuinely additive measures and render views. Never sum non-additive scope results or average ratios without considering denominators.
 

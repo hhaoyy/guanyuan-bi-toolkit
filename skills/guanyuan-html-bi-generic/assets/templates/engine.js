@@ -2,7 +2,7 @@
 'use strict';
 const catalog = {
  overview:{title:'经营总览',question:'整体表现如何，变化主要来自哪里？',fields:['orders','sales'],layout:'指标 → 周期对比 → 门店贡献 → 下一步'},
- funnel:{title:'转化漏斗',question:'同一批用户在哪个环节流失？',fields:['visitors','leads','orders'],layout:'同 cohort 阶段 → 转化率 → 最大流失环节 → 验证'},
+ funnel:{title:'转化漏斗',question:'同一批用户在哪个环节流失？',fields:['visitors','leads','orders'],layout:'同一批用户的阶段 → 转化率 → 流失环节 → 验证'},
  channels:{title:'渠道对比',question:'哪些渠道贡献规模，哪些转化较好？',fields:['visitors','orders','sales'],layout:'规模与效率 → 渠道矩阵 → 变化贡献 → 验证'},
  monitor:{title:'异常监控',question:'哪些分组偏离已确认的变化阈值？',fields:['sales'],layout:'规则状态 → 异常列表 → 对比证据 → 调查建议'}
 };

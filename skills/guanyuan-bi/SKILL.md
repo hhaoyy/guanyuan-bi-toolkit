@@ -9,7 +9,7 @@ Start from the user's question, available fields or existing dashboard link. Reu
 
 ## Choose the work
 
-- Business question / new dashboard: infer candidate metrics and dimensions from available evidence, explain unconfirmed definitions, then use `guanyuan-html-bi-generic` to recommend two suitable template previews. Reuse a requested design without forcing selection. If the user requests native Guanyuan charts, preserve that choice and use the CLI route rather than forcing HTML.
+- Business question / new dashboard: infer candidate metrics and dimensions from available evidence, explain unconfirmed definitions, then use `guanyuan-html-bi-generic` to choose or adapt a suitable layout, offering alternatives when they meaningfully differ. Reuse a requested design without forcing selection. If the user requests native Guanyuan charts, preserve that choice and use the CLI route rather than forcing HTML.
 - Existing dashboard link: use `guanyuan-metric-lineage` to understand calculations and filters, then inspect authorized aggregate results for analysis. Configuration alone is not numerical evidence.
 - Prepared HTML / platform edits: route to `guanyuan-cli` for version adaptation and platform delivery. Existing task authorization applies; do not repeat approvals or require the user to transfer context between skills.
 - Analysis only: follow [analysis workflow](references/analysis.md); no publishing or visual redesign is necessary.

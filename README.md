@@ -2,186 +2,98 @@
 
 # 🪐 Guanyuan BI Toolkit
 
-**让看板好看，让数字有出处，让调查有下一步。**
+**用 Codex / Claude Code，把一句需求变成观远 BI 看板。**
 
-在 Codex 或 Claude Code 中描述问题，让 AI 帮你设计、分析并交付观远 BI 看板。
+描述需求 → 预览设计 → 接入数据 → 发布与维护
 
-`4 类模板` · `3 种主题` · `可执行调查` · `指标血缘` · `MIT`
-
-[效果预览](#templates) · [安装与调用](#install) · [用自己的需求开始](#usage) · [更新指南](docs/updating.md)
+[看效果](#preview) · [开始使用](#start) · [版本更新](docs/updating.md)
 
 </div>
 
-## 适合谁？
+## 从一个小需求开始
 
-- **已经会用 AI 的分析师、BI 开发者**：希望把自然语言需求、页面原型或字段说明变成可维护的看板。
-- **在观远内交付报表的团队**：用 AI 辅助开发，同时沿用组织的数据源、数据集与看板权限管理。
-- **接手已有看板的维护者**：需要弄清指标怎么算、筛选器影响哪里、变化值得从何处调查。
+> “我想做一张门店经营看板：本周卖得怎么样？哪些门店增长、哪些下降？”
 
-可以先用字段说明和模拟数据设计页面，再接入观远。真实数据的 AI 使用范围以组织授权为准；Skill 本身不替代平台权限管理。
+把这句话和已有字段说明交给 AI，Skill 会帮助你选择图表、生成可交互页面、梳理指标口径，并通过官方 CLI 完成观远接入。后续改布局、加筛选器，也可以接着用自然语言完成。
 
-<a id="templates"></a>
+适合**已经在使用 AI、又需要在观远 BI 内交付看板**的分析师和开发者。先用字段说明与模拟数据设计，正式交付沿用观远的数据源、数据集和权限管理；交给 AI 的数据范围仍由你的组织决定。
 
-## 四种模板，四种调查方式
+<a id="preview"></a>
 
-选择业务问题，再选简洁商务、紧凑分析或深色展示主题。下图展示商务主题及**点击调查后的完整结果**，点击图片可查看大图。
+### 你能做出什么？
 
-| 经营总览 | 转化漏斗 |
-| --- | --- |
-| [![经营总览：订单量和客单价拆解](docs/assets/templates/overview.png)](docs/assets/templates/overview.png) | [![转化漏斗：入口及阶段影响分解](docs/assets/templates/funnel.png)](docs/assets/templates/funnel.png) |
-| 看清整体变化、分组贡献，执行订单量与客单价拆解。 | 对比各阶段转化率，执行入口人数和阶段变化分解。 |
+下面是经营总览示例：总指标、周期对比、销售构成和可下钻明细，在一页里讲清整体表现。截图使用虚构的“星际补给站”数据。
 
-| 渠道对比 | 异常监控 |
-| --- | --- |
-| [![渠道对比：流量与转化率调查](docs/assets/templates/channels.png)](docs/assets/templates/channels.png) | [![异常监控：按金额影响排列调查](docs/assets/templates/monitor.png)](docs/assets/templates/monitor.png) |
-| 区分规模与效率，逐渠道计算流量和转化率的影响。 | 按确认的阈值发现偏离，按金额影响安排调查顺序。 |
+[![经营总览示例](docs/assets/templates/overview.png)](docs/assets/templates/overview.png)
 
-### 点击调查，会得到什么？
+布局随任务变化。漏斗突出阶段流失，对比工作台方便逐行比较，监控面板把需要关注的分组放在前面：
 
-以下来自截图中的合成案例，展示实际计算结果，而非预先写好的业务结论。
-
-| 用户的问题 | 执行结果 | 下一步方向 |
+| 转化漏斗 | 渠道对比 | 异常监控 |
 | --- | --- | --- |
-| 销售额为什么少了 600 星币？ | 订单量影响 **−600 星币**，客单价影响 **0** | 优先查看订单减少的分组与日期 |
-| 转化用户为什么少了 30 人？ | 入口规模 **−20 人**，访问→意向 **−10 人**，意向→下单 **0** | 优先检查入口来源和第一阶段 |
-| 月球频道的减少来自哪里？ | 流量影响 **−40 人**，转化率影响 **−10 人** | 检查流量来源与转化路径；预算判断还需要成本证据 |
-| 哪个异常值得先查？ | 月球站 **−25%**，超阈值 **5 个百分点**，金额 **−1,000 星币** | 先核对数据刷新与口径，再查看持续时间 |
+| [![转化漏斗](docs/assets/templates/funnel.png)](docs/assets/templates/funnel.png) | [![渠道对比](docs/assets/templates/channels.png)](docs/assets/templates/channels.png) | [![异常监控](docs/assets/templates/monitor.png)](docs/assets/templates/monitor.png) |
+| 哪个环节流失了用户？ | 哪些渠道有规模、转化好？ | 哪些分组达到了关注阈值？ |
 
-调查结果在全宽区域展示，标明单位，并随筛选范围重新计算。尚未接入逐日数据时，按钮会提前显示所需证据。分解结果说明变化构成，不直接证明业务原因。
+这些是可调整的起点。你可以提供喜欢的设计，也可以继续让 AI 改成适合自己的布局。[查看大图、交互与设计参考 →](docs/templates.md)
 
-下载仓库后打开 [模板画廊](examples/template-gallery/index.html)，可切换模板、主题和分组，体验调查、空数据与缺失字段状态。GitHub 中该链接显示源码，请在本地浏览器打开 HTML。
+### Skill 帮你完成哪些工作？
 
-<a id="install"></a>
-
-## 在 Codex / Claude Code 中安装与调用
-
-推荐安装完整四套 Skill，然后使用统一入口 **`guanyuan-bi`**。它按任务调用页面开发、CLI 和血缘技能，你无需在它们之间搬运上下文。这里的 Claude 指本地 **Claude Code**。
-
-### Codex
-
-发送下面这段安装请求：
-
-```text
-请使用 $skill-installer，从 https://github.com/hhaoyy/guanyuan-bi-toolkit
-安装以下四套 Skill：
-- skills/guanyuan-bi
-- skills/guanyuan-html-bi-generic
-- skills/guanyuan-metric-lineage
-- skills/guanyuan-cli
-
-保留每个目录内的 SKILL.md、references、scripts、assets 等全部文件。
-若已有同名技能，先比较差异，保留我的本地定制。
+```mermaid
+flowchart LR
+    A[描述需求<br/>提供字段或已有看板] --> B[AI 梳理指标<br/>选择图表与布局]
+    B --> C[生成交互预览<br/>按反馈调整]
+    C --> D[接入观远<br/>绑定数据与发布验证]
+    D --> E[持续维护<br/>改样式、筛选与指标]
 ```
 
-安装后，在技能选择器选择 `guanyuan-bi`；在 Codex CLI / IDE 中可以直接发送：
+- **做看板**：从业务问题到页面设计，支持自定义 HTML，也支持按要求使用观远原生图表。
+- **接入与维护**：通过官方 CLI 配置数据集、绑定字段、发布验证，后续更新已有看板。
+- **理解数据**：梳理指标公式、筛选和来源；需要分析时，比较变化、拆解贡献，并说明还缺什么证据。
+
+<a id="start"></a>
+
+## 安装并做出第一张看板
+
+### 1. 安装一次
+
+在 Codex 或 Claude Code 中发送：
 
 ```text
-$guanyuan-bi 帮我制作门店经营看板。先推荐两种布局，
-用模拟数据预览，再按我确认的字段接入观远。
+请从 https://github.com/hhaoyy/guanyuan-bi-toolkit
+将 skills/ 下的四个完整技能目录安装到当前工具的个人 skills 目录。
+Codex 请使用 $skill-installer；Claude Code 安装到 ~/.claude/skills/。
+保留各目录内的全部文件；已有同名技能时保留我的本地定制。
 ```
 
-技能未显示时重启后检查。安装及显式调用方式见 [Codex 官方说明](https://learn.chatgpt.com/docs/build-skills)。
+安装后统一调用 **guanyuan-bi**：Codex 输入 `$guanyuan-bi`，Claude Code 输入 `/guanyuan-bi`。Codex 中也可通过技能选择器选中它；未出现时重启检查。[完整安装步骤与故障排查 →](docs/getting-started.md)
 
-### Claude Code
+### 2. 用你的需求开始
 
-发送下面这段安装请求：
+在自己的项目目录中调用技能，然后发送下面这个最小案例。把字段和目标换成你的实际需求即可：
 
 ```text
-请从 https://github.com/hhaoyy/guanyuan-bi-toolkit 下载：
-- skills/guanyuan-bi
-- skills/guanyuan-html-bi-generic
-- skills/guanyuan-metric-lineage
-- skills/guanyuan-cli
-
-把四个完整目录分别安装到 ~/.claude/skills/ 下，保持各自目录名。
-保留 SKILL.md、references、scripts、assets 等全部内容。
-若已有同名技能，先比较差异，保留我的本地定制。
+帮我做一张门店经营看板，给区域运营负责人看。
+我有：日期、门店、销售额、订单数；销售额单位为元。
+想看：本周与上周的整体表现，以及各门店的变化。
+先用模拟数据制作可交互预览，把需要确认的指标口径列出来。
 ```
 
-随后发送：
+你会先得到**可打开的页面预览和待确认的口径**。继续说“把门店对比放大”“增加门店筛选”，就能在同一个任务中迭代。
+
+### 3. 满意后接入观远
 
 ```text
-/guanyuan-bi 帮我制作门店经营看板。先推荐两种布局，
-用模拟数据预览，再按我确认的字段接入观远。
+按确认后的设计继续。目标观远看板是：[我的看板链接]，
+数据集是：[我有权限使用的数据集]。
+请核对字段映射，完成接入，并验证筛选和展示结果。
 ```
 
-安装位置与 `/skill-name` 调用方式见 [Claude Code 官方说明](https://code.claude.com/docs/en/skills)。
+也可以提供目标目录新建看板。平台接入需要对应访问权限；预览阶段无需观远登录。Skill 会检查所需官方 CLI 的版本与能力，再继续交付。
 
-<details>
-<summary>手动安装、项目内安装与专门技能</summary>
+## 需要时再看
 
-下载仓库，将 `skills/` 下四个完整目录复制到对应位置，不能只复制 `SKILL.md`。
+- [安装、已有看板改造与更多使用示例](docs/getting-started.md)
+- [官方 CLI 与本项目的关系、更新与兼容](docs/updating.md) — 本项目提供社区 Skill，官方 CLI 单独安装和更新。
+- [模板画廊与进一步分析](docs/templates.md) · [指标血缘](docs/lineage.md) · [HTML 接入](docs/html-bi.md)
+- [超级应用、外接 AI / MCP 与实时刷新](examples/superapp-analysis/README.md)
 
-| 工具 | 当前项目 | 个人所有项目 |
-| --- | --- | --- |
-| Codex | `.agents/skills/` | `~/.agents/skills/` |
-| Claude Code | `.claude/skills/` | `~/.claude/skills/` |
-
-| 用途 | Codex CLI / IDE | Claude Code |
-| --- | --- | --- |
-| 统一入口、分析需求 | `$guanyuan-bi` | `/guanyuan-bi` |
-| HTML 看板设计与数据适配 | `$guanyuan-html-bi-generic` | `/guanyuan-html-bi-generic` |
-| 官方 CLI 安装检查、平台操作 | `$guanyuan-cli` | `/guanyuan-cli` |
-| 指标、筛选器与来源梳理 | `$guanyuan-metric-lineage` | `/guanyuan-metric-lineage` |
-
-</details>
-
-<a id="usage"></a>
-
-## 用自己的需求开始
-
-在 Codex 或 Claude Code 中打开**你自己的项目目录**，调用 `guanyuan-bi` 后接着描述任务。可以给业务问题、字段说明或已有看板链接；不必先自己写好完整的数据契约。
-
-### 1. 新建看板：从问题到预览
-
-```text
-使用者：区域运营负责人。
-问题：本期经营如何，哪些门店贡献了主要变化？
-已有材料：日期、门店、订单数、销售额的字段说明。
-对比范围：本周与上周的完整周期；金额单位由我确认。
-
-请先推荐两种布局并说明适合回答什么问题，使用模拟数据制作预览。
-保留分组切换、变化分析和可执行调查。
-口径不明确的部分先标出来，文件保存到当前项目目录。
-```
-
-你会得到：布局建议、需要确认的口径、页面预览，以及接入所需字段。可继续说“采用紧凑主题”“把调查结果放在趋势下面”，再调整设计。
-
-### 2. 接入与发布：沿用同一任务
-
-```text
-按我们确认的布局和口径继续。
-请使用 guanyuan-cli 检查所需官方组件，复用适合的已有登录。
-目标观远实例、目录和数据源使用我提供的信息或项目配置。
-创建或复用数据集，完成字段绑定和发布，回读核对数据与交互。
-保留源工程和资源映射，后续继续修改同一个看板。
-```
-
-安装 Skill 不等于安装官方 CLI。发布需要对应环境的访问与操作权限；没有平台访问条件时，先交付预览和接入文件。详细步骤见 [CLI 使用指南](docs/cli.md)。
-
-### 3. 已有看板：理解口径，再分析变化
-
-```text
-请使用 guanyuan-bi 分析这个看板：[替换为我的看板链接]。
-先梳理指标公式、默认筛选和数据来源。
-在获准的数据范围内比较两个完整周期，找出主要变化分组。
-区分数值事实、解释假设与证据缺口；继续执行可支持的调查。
-这次只分析，不修改线上看板。
-```
-
-当前配置优先通过 CLI 获取，离线或明确缺口再使用 HAR。详见 [指标血缘指南](docs/lineage.md)。
-
-## 与官方 CLI 的关系、如何更新
-
-本仓库的 **`guanyuan-cli` 是社区编排 Skill**，指导 AI 使用观远官方工具；官方程序是 `@guandata/guancli`、`@guandata/guanvis` 等 npm 包。本仓库不打包这些二进制，也不替代官方 CLI。**更新本仓库与更新官方 CLI 是两件事。**
-
-Skill 按用户实际安装版本适配命令与能力。检查最新版、更新已安装 Skill、升级官方组件及回退方法见 **[更新与版本兼容指南](docs/updating.md)**。
-
-## 按需扩展
-
-- [超级应用、可选 AI / MCP 分析与刷新演示](examples/superapp-analysis/README.md)
-- [HTML 接入与数据契约](docs/html-bi.md)
-- [模板字段要求与调查接口](skills/guanyuan-html-bi-generic/references/templates.md)
-- [CLI 使用与常见问题](docs/cli.md)
-
-欢迎分享使用体验、兼容性问题和通用模板。代码与文档采用 [MIT License](LICENSE)；独立社区项目，与观远官方无隶属或背书关系。
+[MIT License](LICENSE) · 独立社区项目，与观远官方无隶属或背书关系。
