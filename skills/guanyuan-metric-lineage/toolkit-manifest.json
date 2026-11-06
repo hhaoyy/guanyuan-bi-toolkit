@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "skill": "guanyuan-metric-lineage",
+  "version": "0.1.0-beta.1",
+  "files": {
+    "SKILL.md": "c6b0517c4f4f68a2b131c6a22ec35a8cae199d561f3e0ede64a3e1357cab7054",
+    "references/cli-first.md": "58cfc16a731106b42be15eddf78e355b65aab152618cdf858c6264f27c249b44",
+    "references/har-fallback.md": "23f41aee2428ba50b3fd5f39abcb84941a17fb5d3e05bd954c72c4ef17da8eed",
+    "scripts/analyze_guanyuan_logs.py": "edc5c8b6c0c9b5e89f89fd119427ab3eb1c5820d2dacc48cf893f540f74051e5",
+    "scripts/parse_guanyuan_har.py": "b08799e1724c67c66fa4b1730b37f6c9d8dcfd4a177014917cff508193ff3a6d"
+  }
+}

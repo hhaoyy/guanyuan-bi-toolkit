@@ -20,6 +20,10 @@
 
 ## 更新已安装 Skill
 
+优先选择 [Release](https://github.com/hhaoyy/guanyuan-bi-toolkit/releases) 中的固定版本，阅读变更说明后运行新安装包的安装器；未修改旧版本会备份，定制冲突会保留。具体见 [安装与升级](../INSTALL.md)。用 `toolkit.py version` 和 `toolkit.py check` 核对实际加载位置。
+
+以下方式用于明确希望跟随主分支开发版本的用户：
+
 推荐在原来安装技能的 Codex / Claude Code 中发送：
 
 ```text

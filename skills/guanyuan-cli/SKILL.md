@@ -13,7 +13,7 @@ Before platform work, follow [automatic version adaptation](references/compatibi
 
 ## Setup and routing
 
-Read [setup.md](references/setup.md) for installation, version discovery and authentication. Use existing tools when suitable; install missing dependencies from verified official sources. Run `python3 <this-skill>/scripts/doctor.py` to check local component startup without logging in or changing BI resources. A successful check does not prove server compatibility.
+Read [setup.md](references/setup.md) for installation, version discovery and authentication. Use existing tools when suitable; install missing dependencies from verified official sources. Run `python3 <this-skill>/scripts/doctor.py --components <required-components> --bin-dir <selected-runtime-bin-directory>` (omit `--bin-dir` only when using PATH) to check local component startup without logging in or changing BI resources. A successful check does not prove server compatibility.
 
 | Work | Component |
 | --- | --- |

@@ -1,0 +1,43 @@
+name: Build and publish reviewed release
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: write
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-python@v7.1.0
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: '22'
+      - name: Verify version and notes
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          test "$RELEASE_TAG" = "v$(cat VERSION)"
+          test -f "docs/releases/$RELEASE_TAG.md"
+      - run: python3 -m unittest discover -s tests -p 'test_*.py'
+      - run: node --test tests/*.test.cjs
+      - run: python3 scripts/check_public_files.py
+      - run: python3 skills/guanyuan-bi/scripts/toolkit.py check
+      - run: python3 scripts/build_release.py --output output/release
+      - name: Publish immutable version entry
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        shell: bash
+        run: |
+          flags=()
+          if [[ "$RELEASE_TAG" == *-* ]]; then flags+=(--prerelease); fi
+          gh release create "$RELEASE_TAG" output/release/*.zip output/release/SHA256SUMS \
+            --verify-tag "${flags[@]}" --title "$RELEASE_TAG" \
+            --notes-file "docs/releases/$RELEASE_TAG.md"

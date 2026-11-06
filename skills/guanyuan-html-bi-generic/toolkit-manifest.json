@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "skill": "guanyuan-html-bi-generic",
+  "version": "0.1.0-beta.1",
+  "files": {
+    "SKILL.md": "0ae76b8572dc89ea8df76fe301e65dee3a8bc5db7a9d2d1cd6f552d7c8fc0c0f",
+    "assets/templates/engine.js": "712bb12af1593604e8372a0c0a855ee7e19e1efd6b22c32659f7ee42694bdce7",
+    "assets/templates/theme.css": "8ffc908e7c072b92b8e493511150f1380f0c39223c76fe330dac1b7edd084621",
+    "assets/templates/view.js": "415ddc946144b6223103a96ccaf0582aea2fccdd82ec66ddea6595cd1792f55e",
+    "references/cli-delivery.md": "3aee2a124c0e088573624863090ea2185ef7a64c870649decbf0e4778f9fa61f",
+    "references/templates.md": "69b2ebc100006e88ae76a4981f63f886289e1fa2b363a4a48300e717f27f7bb9"
+  }
+}

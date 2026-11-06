@@ -7,6 +7,14 @@ description: Help users build, improve or analyze Guanyuan dashboards from a bus
 
 Start from the user's question, available fields or existing dashboard link. Reuse known context. Ask only for missing business definitions, comparison scope or access decisions that affect the result; do not make users select technical skills or fill out a full data contract before helping.
 
+## Installation and project setup
+
+When asked about installation/version problems, run `python3 <this-skill>/scripts/toolkit.py version` or `check` from the actual loaded skill directory. The check defaults to sibling skills; use `--skills-dir` if the tool loads another root. Report checked and loaded paths distinctly; a file check cannot prove agent discovery. Do not rewrite checksums to hide local edits.
+
+For a new persistent dashboard project, offer/use `toolkit.py init --project <private-project-directory> --template overview` (also funnel, channels, monitor) when a starter is useful. It creates source files, field mapping and pending acceptance records, with no business data or platform writes. Reuse existing projects and user layouts; initialization is optional for small edits or analysis-only tasks. Continue adapting the fields and preview within the request; the empty scaffold is not dashboard delivery. Keep `project.json` resource IDs, selected CLI runtime and actual acceptance status current for later sessions.
+
+`toolkit.py check --components guancli guands guanvis --bin-dir <selected-runtime-bin>` checks only those local components, without login. Use the same selected runtime for platform work. Companion skill manifests identify the toolkit release separately from vendor versions.
+
 ## Choose the work
 
 - Business question / new dashboard: infer candidate metrics and dimensions from available evidence, explain unconfirmed definitions, then use `guanyuan-html-bi-generic` to choose or adapt a suitable layout, offering alternatives when they meaningfully differ. Reuse a requested design without forcing selection. If the user requests native Guanyuan charts, preserve that choice and use the CLI route rather than forcing HTML.

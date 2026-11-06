@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "skill": "guanyuan-cli",
+  "version": "0.1.0-beta.1",
+  "files": {
+    "SKILL.md": "fc8878976e473b426a03b562ba10d7f7845cca4d1841900ec1b01b726da532d7",
+    "references/backup-permissions.md": "aef7fbdf2d3f63af437cb8062892e1c9faa3798792263f30ac451c5d6c4e6f0b",
+    "references/compatibility.md": "5d9bc04e76382a0c60bb6cfbb2b1247575b23f70117a89587344e589bcc9b7d9",
+    "references/configuration.md": "033916d4073223ca79af38ba7af040a269f6b30ba599a024cffb6fc7c0ac38a1",
+    "references/delivery.md": "6f5b96862f91af0f322b4b41ecc0a83c6e32ad823024b2acb9dfcea4f593e6a8",
+    "references/setup.md": "dcf61afd7495aa15e4055d2eb9b6528475f15a569e506c04960db0535265a8d7",
+    "scripts/compatibility.py": "bc51ff4cb4c3aeec1c03833bf097017c432f558ac06b9add03d6bc3e12694846",
+    "scripts/doctor.py": "a54886ef5fe19f121b4a70f79f5c39f58e745e78bb8c9e703705934e18f66ec5"
+  }
+}

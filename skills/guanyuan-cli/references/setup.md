@@ -23,7 +23,7 @@ For a smaller task, reuse the installation and install only missing required com
 
 After installation:
 
-1. Run `doctor.py`; it checks all six by default, or use `--components guancli guands guanvis` for HTML work. Missing unrelated components do not block the requested subset.
+1. Run `doctor.py --bin-dir <selected-runtime-bin-directory>` for an isolated runtime (omit `--bin-dir` only when intentionally using PATH); it checks all six by default, or use `--components guancli guands guanvis` for HTML work. Missing unrelated components do not block the requested subset.
 2. Read `guancli auth --help` and `guancli auth status`. Reuse a suitable existing profile, otherwise follow the current login flow with information supplied by the user. Keep secrets out of command history, generated code and public logs; prefer supported interactive login or secret input.
 3. Query a minimal authorized resource to verify connectivity and identity. Keep output private. Record separately: installed version, authenticated instance, read access, and operations actually tested.
 

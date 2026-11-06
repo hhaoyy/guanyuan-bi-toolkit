@@ -6,7 +6,7 @@
 
 描述需求 → 预览设计 → 接入数据 → 发布与维护
 
-[看效果](#preview) · [开始使用](#start) · [版本更新](docs/updating.md)
+[看效果](#preview) · [四个 Skill](#skills) · [开始使用](#start) · [下载 Beta](https://github.com/hhaoyy/guanyuan-bi-toolkit/releases/tag/v0.1.0-beta.1)
 
 </div>
 
@@ -49,19 +49,42 @@ flowchart LR
 - **接入与维护**：通过官方 CLI 配置数据集、绑定字段、发布验证，后续更新已有看板。
 - **理解数据**：梳理指标公式、筛选和来源；需要分析时，比较变化、拆解贡献，并说明还缺什么证据。
 
+<a id="skills"></a>
+
+### 四个 Skill，分别帮你做什么？
+
+通常从 **`guanyuan-bi`** 开始；任务明确时，也可以单独调用对应技能。
+
+| Skill | 你可以交给它的任务 |
+| --- | --- |
+| **[guanyuan-bi](skills/guanyuan-bi/SKILL.md)** | “我想做一张经营看板。”理解需求，协调设计、分析和交付。 |
+| **[guanyuan-html-bi-generic](skills/guanyuan-html-bi-generic/SKILL.md)** | “把这些字段做成可交互页面。”设计 HTML 看板、调整布局、适配数据。 |
+| **[guanyuan-cli](skills/guanyuan-cli/SKILL.md)** | “接入观远，再更新原来的看板。”检查官方 CLI，配置数据集、绑定字段、发布验证。 |
+| **[guanyuan-metric-lineage](skills/guanyuan-metric-lineage/SKILL.md)** | “这个数字怎么算的，来自哪里？”梳理指标公式、筛选范围、卡片联动和上游来源。 |
+
+**已有看板也可以从血缘开始：**
+
+```text
+请使用 guanyuan-metric-lineage 分析这个看板：[看板链接]。
+说明销售额如何计算、哪些筛选器影响它、来自哪个数据集，
+以及当前能确认的上游来源。标明证据与缺口，这次不修改看板。
+```
+
+优先读取当前平台配置，必要时用 HAR 补充；能追溯到哪一层取决于可见配置与权限。[查看血缘功能与输出说明 →](docs/lineage.md)
+
 <a id="start"></a>
 
 ## 安装并做出第一张看板
 
 ### 1. 安装一次
 
-在 Codex 或 Claude Code 中发送：
+推荐使用 [v0.1.0-beta.1 试用版](https://github.com/hhaoyy/guanyuan-bi-toolkit/releases/tag/v0.1.0-beta.1)，在 Codex 或 Claude Code 中发送：
 
 ```text
-请从 https://github.com/hhaoyy/guanyuan-bi-toolkit
-将 skills/ 下的四个完整技能目录安装到当前工具的个人 skills 目录。
-Codex 请使用 $skill-installer；Claude Code 安装到 ~/.claude/skills/。
-保留各目录内的全部文件；已有同名技能时保留我的本地定制。
+请下载 https://github.com/hhaoyy/guanyuan-bi-toolkit/releases/tag/v0.1.0-beta.1
+中的 guanyuan-bi-toolkit-0.1.0-beta.1.zip，核对 SHA256SUMS，
+解压后按 INSTALL.md 为当前工具安装四个 Skill，并运行安装自检。
+如果发现我已有本地定制，先保留并说明差异。
 ```
 
 安装后统一调用 **guanyuan-bi**：Codex 输入 `$guanyuan-bi`，Claude Code 输入 `/guanyuan-bi`。Codex 中也可通过技能选择器选中它；未出现时重启检查。[完整安装步骤与故障排查 →](docs/getting-started.md)
@@ -77,7 +100,7 @@ Codex 请使用 $skill-installer；Claude Code 安装到 ~/.claude/skills/。
 先用模拟数据制作可交互预览，把需要确认的指标口径列出来。
 ```
 
-你会先得到**可打开的页面预览和待确认的口径**。继续说“把门店对比放大”“增加门店筛选”，就能在同一个任务中迭代。
+Skill 可以先初始化独立看板工程，保存页面源文件、字段映射和验收记录；你会得到**可打开的页面预览和待确认的口径**。继续说“把门店对比放大”“增加门店筛选”，就能在同一个任务中迭代。
 
 ### 3. 满意后接入观远
 
@@ -91,6 +114,7 @@ Codex 请使用 $skill-installer；Claude Code 安装到 ~/.claude/skills/。
 
 ## 需要时再看
 
+- [安装自检与项目初始化](docs/project-setup.md) · [版本变更](CHANGELOG.md)
 - [安装、已有看板改造与更多使用示例](docs/getting-started.md)
 - [官方 CLI 与本项目的关系、更新与兼容](docs/updating.md) — 本项目提供社区 Skill，官方 CLI 单独安装和更新。
 - [模板画廊与进一步分析](docs/templates.md) · [指标血缘](docs/lineage.md) · [HTML 接入](docs/html-bi.md)

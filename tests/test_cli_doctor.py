@@ -2,6 +2,7 @@
 import importlib.util
 from pathlib import Path
 import subprocess
+import tempfile
 import unittest
 from unittest.mock import patch
 
@@ -24,6 +25,17 @@ class DoctorTests(unittest.TestCase):
             self.assertEqual(check, {'component': 'guanvis', 'status': 'ready', 'exit_code': 0})
             self.assertEqual(run.call_args.args[0], ['/synthetic/guanvis', '--help'])
             self.assertEqual(run.call_args.kwargs['timeout'], 15)
+
+    def test_selected_runtime_never_falls_back_to_path(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            with patch.object(doctor.shutil, 'which') as which, patch.object(doctor.subprocess, 'run') as run:
+                self.assertEqual(doctor.inspect('guanvis', tmp)['status'], 'missing')
+                which.assert_not_called(); run.assert_not_called()
+            binary = Path(tmp) / 'guanvis'
+            binary.write_text('synthetic executable')
+            with patch.object(doctor.subprocess, 'run', return_value=subprocess.CompletedProcess([], 0)) as run:
+                self.assertEqual(doctor.inspect('guanvis', tmp)['status'], 'ready')
+                self.assertEqual(run.call_args.args[0], [str(binary), '--help'])
 
     def test_failure_and_timeout_are_not_ready(self):
         with patch.object(doctor.shutil, 'which', return_value='/synthetic/guands'):

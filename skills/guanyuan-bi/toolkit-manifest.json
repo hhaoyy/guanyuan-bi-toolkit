@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "skill": "guanyuan-bi",
+  "version": "0.1.0-beta.1",
+  "files": {
+    "SKILL.md": "f3228f5912c2d79c742052ff8185bddb17702c5b31f990b1bb0d3986f38ecfc3",
+    "assets/superapp/client.js": "b44f484aa4a06aa66a2c4ea518fb29e34accb56b4b1ce93c96ebd68bfc0e22ee",
+    "assets/superapp/service.cjs": "4a0fac361e9c26a8dd75017b2b2587f6274ca426f5b349edcf44c91e9b41d57a",
+    "references/analysis.md": "4d6f582a9ac76593a8aba698dd20d757897bec5b9217af6ab3b792743533f4bb",
+    "references/superapp-analysis.md": "80c3e8c8fc5c9d55888de85c0d0498cfed0e076942397eba76146e834b10e016",
+    "scripts/package_info.py": "45e1e6414f49a6df449c59cd5658ecb0df49caab84afc62d6ecc146f22178735",
+    "scripts/toolkit.py": "d6afd6a7a8353b6f5d1f70b295ff091af5bab48efd5a6fe3b6943f2b70b1a768"
+  }
+}

@@ -2,7 +2,13 @@
 
 [返回首页](../README.md) · [版本更新](updating.md)
 
-## 在 Codex / Claude Code 中安装与调用
+## 固定版本安装（推荐）
+
+下载 [v0.1.0-beta.1](https://github.com/hhaoyy/guanyuan-bi-toolkit/releases/tag/v0.1.0-beta.1) 的命名安装包，按 [INSTALL.md](../INSTALL.md) 安装、自检。此方式固定四套 Skill 的版本，适合试用与反馈。
+
+下文 GitHub 路径安装适合需要主分支最新开发内容的人；它不等同于固定发布版。
+
+## 从 GitHub 路径安装与调用
 
 推荐安装完整四套 Skill，然后使用统一入口 **`guanyuan-bi`**。它按任务调用页面开发、CLI 和血缘技能，你无需在它们之间搬运上下文。这里的 Claude 指本地 **Claude Code**。
 
