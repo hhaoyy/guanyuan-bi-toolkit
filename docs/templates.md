@@ -13,19 +13,19 @@
 
 ## 经营总览
 
-![经营总览](assets/templates/overview.png)
+![经营总览](assets/templates/overview-layout.png)
 
 ## 转化漏斗
 
-![转化漏斗](assets/templates/funnel.png)
+![转化漏斗](assets/templates/funnel-layout.png)
 
 ## 渠道对比
 
-![渠道对比](assets/templates/channels.png)
+![渠道对比](assets/templates/channels-layout.png)
 
 ## 异常监控
 
-![异常监控](assets/templates/monitor.png)
+![异常监控](assets/templates/monitor-layout.png)
 
 ## 在本地体验
 

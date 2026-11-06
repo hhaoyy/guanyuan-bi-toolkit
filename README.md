@@ -24,13 +24,13 @@
 
 下面是经营总览示例：总指标、周期对比、销售构成和可下钻明细，在一页里讲清整体表现。截图使用虚构的“星际补给站”数据。
 
-[![经营总览示例](docs/assets/templates/overview.png)](docs/assets/templates/overview.png)
+[![经营总览示例](docs/assets/templates/overview-layout.png)](docs/assets/templates/overview-layout.png)
 
 布局随任务变化。漏斗突出阶段流失，对比工作台方便逐行比较，监控面板把需要关注的分组放在前面：
 
 | 转化漏斗 | 渠道对比 | 异常监控 |
 | --- | --- | --- |
-| [![转化漏斗](docs/assets/templates/funnel.png)](docs/assets/templates/funnel.png) | [![渠道对比](docs/assets/templates/channels.png)](docs/assets/templates/channels.png) | [![异常监控](docs/assets/templates/monitor.png)](docs/assets/templates/monitor.png) |
+| [![转化漏斗](docs/assets/templates/funnel-layout.png)](docs/assets/templates/funnel-layout.png) | [![渠道对比](docs/assets/templates/channels-layout.png)](docs/assets/templates/channels-layout.png) | [![异常监控](docs/assets/templates/monitor-layout.png)](docs/assets/templates/monitor-layout.png) |
 | 哪个环节流失了用户？ | 哪些渠道有规模、转化好？ | 哪些分组达到了关注阈值？ |
 
 这些是可调整的起点。你可以提供喜欢的设计，也可以继续让 AI 改成适合自己的布局。[查看大图、交互与设计参考 →](docs/templates.md)
